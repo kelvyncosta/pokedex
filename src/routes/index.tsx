@@ -2,12 +2,12 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { Home } from '../pages/Home';
-import { Pokemons } from '../pages/Pokemons';
+import { Pokedex } from '../pages/Pokedex';
 
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/pokemons" component={Pokemons} />s
+    <Route path="/pokedex" component={Pokedex} />s
   </Switch>
 );
 

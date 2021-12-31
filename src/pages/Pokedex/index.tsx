@@ -15,7 +15,7 @@ interface FindPokemonFormData {
   name: string;
 }
 
-function Pokemons(): JSX.Element {
+function Pokedex(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
   const { selectedPokemon: pokemon, findPokemon } = usePokemon();
 
@@ -51,4 +51,4 @@ function Pokemons(): JSX.Element {
   );
 }
 
-export { Pokemons };
+export { Pokedex };
