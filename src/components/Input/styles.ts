@@ -7,7 +7,7 @@ export const Component = styled.div`
   border-radius: 1.25rem;
   justify-content: space-between;
   box-shadow: 0 0 1rem 0 rgb(0 0 0 / 20%);
-  background: #fff;
+  background: ${({ theme }) => theme.colors.white};
 
   > input {
     border: none;

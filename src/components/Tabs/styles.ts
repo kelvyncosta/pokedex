@@ -5,8 +5,8 @@ export const Component = styled.div`
   padding: 1.25rem;
   border-radius: 0.75rem;
   box-shadow: 0 0 0.5rem 0 rgb(0 0 0 / 40%);
-  background: #fff;
-  color: #333;
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
 
   .tabs {
     display: flex;
@@ -77,6 +77,6 @@ export const TabItem = styled.span<ITabItemProps>`
   }
 
   &:hover {
-    color: '#333';
+    color: ${({ theme }) => theme.colors.black};
   }
 `;

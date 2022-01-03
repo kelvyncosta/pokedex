@@ -31,6 +31,11 @@ export type Pokemon = {
   stats: Array<number>;
 };
 
+export type SummaryPokemonResponse = {
+  name: string;
+  url: string;
+};
+
 export type PokemonResponse = {
   id: number;
   name: string;

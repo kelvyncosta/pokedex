@@ -41,7 +41,15 @@ const theme = {
     water: '#4592C4',
   },
   colors: {
+    white: '#fff',
+    black: '#333',
+    yellow: '#FFCC00',
+    blue: '#0065B2',
+    gray: '#808080',
     txtLigth: 'hsla(0, 0%, 100%, 0.2)',
+  },
+  shadow: {
+    default: '0 0 1rem 0 rgb(0 0 0 / 20%)',
   },
 };
 

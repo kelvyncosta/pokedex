@@ -6,9 +6,10 @@ import { isEmpty } from 'lodash';
 
 import pokemonLogo from '../../assets/logo.png';
 import { Input } from '../../components/Input';
+import { Page } from '../../components/Page';
 import { usePokemon } from '../../hooks/pokemon';
 
-import { Page, Content, SearchContainer } from './styles';
+import { Content, SearchContainer } from './styles';
 import { Modal } from '../../components/Modal';
 
 interface FindPokemonFormData {

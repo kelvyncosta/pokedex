@@ -44,7 +44,15 @@ declare module 'styled-components' {
       water: string;
     };
     colors: {
+      white: string;
+      black: string;
+      yellow: string;
+      blue: string;
+      gray: string;
       txtLigth: string;
+    };
+    shadow: {
+      default: string;
     };
   }
 }
