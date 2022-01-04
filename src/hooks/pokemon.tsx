@@ -26,6 +26,7 @@ interface PokemonContextData {
   getNextAndPreviousPokemon(
     currentPokemon: Pokemon,
   ): Promise<IPreviousNextPokemon>;
+  getEvolutionChain(): void;
 }
 
 const PokemonContext = createContext<PokemonContextData>(
@@ -130,6 +131,12 @@ const PokemonProvider: React.FC = ({ children }) => {
     [getStoragePokemons],
   );
 
+  const getEvolutionChain = useCallback(async () => {
+    const { data } = await pokeapi.get('/evolution-chain/1');
+
+    console.log(data);
+  }, []);
+
   return (
     <PokemonContext.Provider
       value={{
@@ -139,6 +146,7 @@ const PokemonProvider: React.FC = ({ children }) => {
         clearSelectedPokemon,
         loadFeaturedPokemons,
         getNextAndPreviousPokemon,
+        getEvolutionChain,
       }}
     >
       {children}

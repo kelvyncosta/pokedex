@@ -6,6 +6,8 @@ interface IComponentProps {
 }
 
 export const Component = styled.div<IComponentProps>`
+  position: relative;
+  z-index: 2;
   padding: 0.1rem 0.5rem;
   border-radius: 0.25rem;
   background-color: ${({ theme, type }) => theme.badges[type]};
