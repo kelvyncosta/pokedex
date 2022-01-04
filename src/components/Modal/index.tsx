@@ -14,6 +14,7 @@ import {
   Overlay,
   ModalFooter,
 } from './styles';
+import { Pokeball } from '../Pokeball';
 
 interface IModalProps {
   active: boolean;
@@ -96,6 +97,9 @@ function Modal({ active }: IModalProps): JSX.Element {
             </button>
           </ModalFooter>
         )}
+        <div className="pokeball">
+          <Pokeball size="200px" />
+        </div>
       </Component>
       <Overlay active={active} onClick={() => clearSelectedPokemon()} />
     </>

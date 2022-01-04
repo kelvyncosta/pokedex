@@ -6,7 +6,7 @@ function About(): JSX.Element {
   const { selectedPokemon: pokemon } = usePokemon();
 
   return (
-    <table>
+    <table className="about">
       <tbody>
         <tr>
           <td>Types</td>

@@ -12,7 +12,7 @@ function BaseStats({ type }: IBaseStatsProps): JSX.Element {
   const { selectedPokemon: pokemon } = usePokemon();
 
   return (
-    <table>
+    <table className="stat">
       <tbody>
         <tr>
           <td>HP</td>

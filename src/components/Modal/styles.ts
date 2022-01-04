@@ -33,6 +33,13 @@ export const Component = styled.div<IComponentProps>`
     min-width: 95%;
     max-width: 345px;
   }
+
+  .pokeball {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 export const ModalHeader = styled.div`

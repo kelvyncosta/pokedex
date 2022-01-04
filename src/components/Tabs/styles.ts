@@ -20,6 +20,23 @@ export const Component = styled.div`
   table {
     width: 100%;
 
+    &.stat {
+      td {
+        padding: 0.5rem;
+        text-transform: capitalize;
+
+        &:nth-child(2) {
+          width: 10%;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        &:nth-child(3) {
+          width: 70%;
+        }
+      }
+    }
+
     td {
       padding: 0.5rem;
       text-transform: capitalize;
@@ -29,13 +46,8 @@ export const Component = styled.div`
       }
 
       &:nth-child(2) {
-        width: 10%;
+        width: 80%;
         font-weight: bold;
-        text-align: center;
-      }
-
-      &:nth-child(3) {
-        width: 70%;
       }
     }
   }
