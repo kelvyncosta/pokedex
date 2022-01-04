@@ -32,6 +32,7 @@ export type Pokemon = {
 };
 
 export type SummaryPokemonResponse = {
+  id: number;
   name: string;
   url: string;
 };
@@ -64,4 +65,9 @@ export type PokemonResponse = {
       };
     };
   };
+};
+
+export type IPreviousNextPokemon = {
+  previous: SummaryPokemonResponse;
+  next: SummaryPokemonResponse;
 };

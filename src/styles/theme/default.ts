@@ -45,7 +45,9 @@ const theme = {
     black: '#333',
     yellow: '#FFCC00',
     blue: '#0065B2',
-    gray: '#808080',
+    lightBlue: '#30A7D7',
+    gray: '#A4A4A4',
+    darkGray: '#616161',
     txtLigth: 'hsla(0, 0%, 100%, 0.2)',
   },
   shadow: {

@@ -1,5 +1,4 @@
 import { Pokemon } from '../../../shared/types/pokemon';
-import { Badge } from '../../Badge';
 import { Component } from './styles';
 
 interface IItemProps {

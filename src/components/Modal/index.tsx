@@ -1,6 +1,9 @@
-import { FiArrowLeft } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { FiArrowLeft, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { isEmpty } from 'lodash';
 import { usePokemon } from '../../hooks/pokemon';
 import { formatPokemonId } from '../../shared/utils/formatPokemonId';
+import { IPreviousNextPokemon } from '../../shared/types/pokemon';
 import { Badge } from '../Badge';
 import { Tabs } from '../Tabs';
 import {
@@ -9,6 +12,7 @@ import {
   ModalContent,
   ModalHeader,
   Overlay,
+  ModalFooter,
 } from './styles';
 
 interface IModalProps {
@@ -16,7 +20,23 @@ interface IModalProps {
 }
 
 function Modal({ active }: IModalProps): JSX.Element {
-  const { selectedPokemon: pokemon, clearSelectedPokemon } = usePokemon();
+  const [nextPreviousPokemon, setNextPreviousPokemon] =
+    useState<IPreviousNextPokemon>({} as IPreviousNextPokemon);
+
+  const {
+    selectedPokemon: pokemon,
+    clearSelectedPokemon,
+    getNextAndPreviousPokemon,
+    findPokemon,
+  } = usePokemon();
+
+  useEffect(() => {
+    (async () => {
+      const tempNextPreviousProkemon = await getNextAndPreviousPokemon(pokemon);
+
+      setNextPreviousPokemon(tempNextPreviousProkemon);
+    })();
+  }, [getNextAndPreviousPokemon, pokemon]);
 
   return (
     <>
@@ -43,6 +63,39 @@ function Modal({ active }: IModalProps): JSX.Element {
         </ModalContent>
 
         <Tabs />
+
+        {!isEmpty(nextPreviousPokemon) && (
+          <ModalFooter>
+            <button
+              type="button"
+              className="button previousPokemon"
+              onClick={() => {
+                findPokemon(nextPreviousPokemon.previous.name);
+              }}
+            >
+              <FiChevronLeft />
+
+              <div>
+                <p>{formatPokemonId(nextPreviousPokemon.previous.id)}</p>
+                <p>{nextPreviousPokemon.previous.name}</p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="button nextPokemon"
+              onClick={() => {
+                findPokemon(nextPreviousPokemon.next.name);
+              }}
+            >
+              <div>
+                <p>{formatPokemonId(pokemon.id)}</p>
+                <p>{nextPreviousPokemon.next.name}</p>
+              </div>
+              <FiChevronRight />
+            </button>
+          </ModalFooter>
+        )}
       </Component>
       <Overlay active={active} onClick={() => clearSelectedPokemon()} />
     </>

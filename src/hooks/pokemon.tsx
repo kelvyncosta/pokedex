@@ -10,6 +10,7 @@ import {
   STORAGE_POKEMONS,
 } from '../shared/constants';
 import {
+  IPreviousNextPokemon,
   Pokemon,
   PokemonResponse,
   SummaryPokemonResponse,
@@ -22,6 +23,9 @@ interface PokemonContextData {
   findPokemon(name: string): void;
   clearSelectedPokemon(): void;
   loadFeaturedPokemons(): void;
+  getNextAndPreviousPokemon(
+    currentPokemon: Pokemon,
+  ): Promise<IPreviousNextPokemon>;
 }
 
 const PokemonContext = createContext<PokemonContextData>(
@@ -34,6 +38,26 @@ const PokemonProvider: React.FC = ({ children }) => {
   );
 
   const [featuredPokemons, setFeaturedPokemons] = useState<Pokemon[]>([]);
+
+  const getStoragePokemons = useCallback(async (): Promise<
+    SummaryPokemonResponse[]
+  > => {
+    const storagePokemons = localStorage.getItem(STORAGE_POKEMONS);
+
+    if (storagePokemons) {
+      return JSON.parse(storagePokemons) as SummaryPokemonResponse[];
+    }
+    const { data } = await pokeapi.get('/pokemon', {
+      params: {
+        offset: 0,
+        limit: MAX_POKEMON_ID,
+      },
+    });
+
+    localStorage.setItem(STORAGE_POKEMONS, JSON.stringify(data.results));
+
+    return data.results as SummaryPokemonResponse[];
+  }, []);
 
   const findPokemon = useCallback(async name => {
     try {
@@ -52,24 +76,9 @@ const PokemonProvider: React.FC = ({ children }) => {
   }, []);
 
   const loadFeaturedPokemons = useCallback(async () => {
-    let allPokemons: SummaryPokemonResponse[] = [];
-    const storagePokemons = localStorage.getItem(STORAGE_POKEMONS);
+    const storagePokemons = await getStoragePokemons();
 
-    if (storagePokemons) {
-      allPokemons = shuffle(
-        JSON.parse(storagePokemons),
-      ) as SummaryPokemonResponse[];
-    } else {
-      const { data } = await pokeapi.get('/pokemon', {
-        params: {
-          offset: 0,
-          limit: MAX_POKEMON_ID,
-        },
-      });
-
-      allPokemons = shuffle(data.results) as SummaryPokemonResponse[];
-      localStorage.setItem(STORAGE_POKEMONS, data.results);
-    }
+    const allPokemons = shuffle(storagePokemons);
 
     const preFeaturedPokemons = allPokemons.slice(
       0,
@@ -84,15 +93,35 @@ const PokemonProvider: React.FC = ({ children }) => {
         `/pokemon/${pokemon.name}`,
       );
 
-      console.log(data);
-
       const formattedPokemon = formatPokemon(data);
 
       featured.push(formattedPokemon);
     }
 
     setFeaturedPokemons(featured);
-  }, []);
+  }, [getStoragePokemons]);
+
+  const getNextAndPreviousPokemon = useCallback(
+    async (currentPokemon: Pokemon): Promise<IPreviousNextPokemon> => {
+      const storagePokemons = await getStoragePokemons();
+
+      const nextPokemon =
+        currentPokemon.id === MAX_POKEMON_ID
+          ? storagePokemons[0]
+          : storagePokemons[currentPokemon.id];
+
+      const previousPokemon =
+        currentPokemon.id === 1
+          ? storagePokemons[MAX_POKEMON_ID - 1]
+          : storagePokemons[currentPokemon.id - 2];
+
+      return {
+        previous: { ...previousPokemon, id: currentPokemon.id - 1 },
+        next: { ...nextPokemon, id: currentPokemon.id + 1 },
+      };
+    },
+    [getStoragePokemons],
+  );
 
   return (
     <PokemonContext.Provider
@@ -102,6 +131,7 @@ const PokemonProvider: React.FC = ({ children }) => {
         findPokemon,
         clearSelectedPokemon,
         loadFeaturedPokemons,
+        getNextAndPreviousPokemon,
       }}
     >
       {children}
