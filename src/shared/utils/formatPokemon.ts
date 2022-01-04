@@ -1,4 +1,5 @@
 import { Pokemon, PokemonResponse } from '../types/pokemon';
+import { getPokemonGeneration } from './getPokemonGeneration';
 
 const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
   const pokemon: Pokemon = {
@@ -14,6 +15,7 @@ const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
     image: pokemonResponse.sprites.other.dream_world.front_default
       ? pokemonResponse.sprites.other.dream_world.front_default
       : pokemonResponse.sprites.other['official-artwork'].front_default,
+    generation: getPokemonGeneration(pokemonResponse.id),
   };
 
   return pokemon;

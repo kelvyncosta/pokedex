@@ -79,6 +79,9 @@ export const Header = styled.div`
 
   .pokemonId {
     position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     right: 0;
     top: 0;
     font-size: 2rem;
@@ -116,10 +119,15 @@ export const Body = styled.div<IBodyProps>`
     top: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    img {
+    > img {
+      position: relative;
       min-height: 400px;
-      max-height: 95%;
+      height: 95%;
       z-index: 2;
     }
   }

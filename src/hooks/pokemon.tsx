@@ -20,7 +20,7 @@ import { formatPokemon } from '../shared/utils/formatPokemon';
 interface PokemonContextData {
   selectedPokemon: Pokemon;
   featuredPokemons: Pokemon[];
-  findPokemon(name: string): void;
+  findPokemon(name: string): Promise<Pokemon>;
   clearSelectedPokemon(): void;
   loadFeaturedPokemons(): void;
   getNextAndPreviousPokemon(
@@ -60,15 +60,19 @@ const PokemonProvider: React.FC = ({ children }) => {
     return data.results as SummaryPokemonResponse[];
   }, []);
 
-  const findPokemon = useCallback(async name => {
+  const findPokemon = useCallback(async (name: string): Promise<Pokemon> => {
     try {
       const { data } = await pokeapi.get<PokemonResponse>(`/pokemon/${name}`);
 
       const findedPokemon = formatPokemon(data);
 
       setSelectedPokemon(findedPokemon);
+
+      return findedPokemon;
     } catch (error) {
       setSelectedPokemon({} as Pokemon);
+
+      throw new Error('');
     }
   }, []);
 

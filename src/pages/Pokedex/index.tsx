@@ -24,10 +24,10 @@ function Pokedex(): JSX.Element {
   const { selectedPokemon: pokemon, findPokemon } = usePokemon();
 
   const handleSubmit = useCallback(
-    (data: FindPokemonFormData) => {
-      findPokemon(data.name);
+    async (data: FindPokemonFormData) => {
+      const findedPokemon = await findPokemon(data.name);
 
-      history.push(`/pokemon/${data.name}`);
+      history.push(`/pokemon/${findedPokemon.name}`);
     },
     [findPokemon, history],
   );

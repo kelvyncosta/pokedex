@@ -42,7 +42,7 @@ function Pokemon(): JSX.Element {
   } = usePokemon();
 
   useEffect(() => {
-    if (isEmpty(pokemon) || name !== pokemon.name) {
+    if (name !== pokemon.name) {
       findPokemon(name);
     }
   }, [findPokemon, name, pokemon]);
@@ -86,6 +86,7 @@ function Pokemon(): JSX.Element {
 
               <div className="pokemonId">
                 <p>{formatPokemonId(pokemon.id)}</p>
+                <p>{pokemon.generation} gen</p>
               </div>
             </Header>
 

@@ -29,6 +29,7 @@ export type Pokemon = {
     abilities: Array<string>;
   };
   stats: Array<number>;
+  generation: string;
 };
 
 export type SummaryPokemonResponse = {
