@@ -29,7 +29,7 @@ function Pokedex(): JSX.Element {
 
       history.push(`/pokemon/${data.name}`);
     },
-    [findPokemon],
+    [findPokemon, history],
   );
 
   return (

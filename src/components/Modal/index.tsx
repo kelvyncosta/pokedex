@@ -29,7 +29,6 @@ function Modal({ active }: IModalProps): JSX.Element {
     clearSelectedPokemon,
     getNextAndPreviousPokemon,
     findPokemon,
-    getEvolutionChain,
   } = usePokemon();
 
   useEffect(() => {
@@ -37,8 +36,6 @@ function Modal({ active }: IModalProps): JSX.Element {
       const tempNextPreviousProkemon = await getNextAndPreviousPokemon(pokemon);
 
       setNextPreviousPokemon(tempNextPreviousProkemon);
-
-      getEvolutionChain();
     })();
   }, [getNextAndPreviousPokemon, pokemon]);
 
