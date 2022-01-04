@@ -104,20 +104,27 @@ const PokemonProvider: React.FC = ({ children }) => {
   const getNextAndPreviousPokemon = useCallback(
     async (currentPokemon: Pokemon): Promise<IPreviousNextPokemon> => {
       const storagePokemons = await getStoragePokemons();
+      const currentId = currentPokemon.id;
 
       const nextPokemon =
-        currentPokemon.id === MAX_POKEMON_ID
+        currentId === MAX_POKEMON_ID
           ? storagePokemons[0]
-          : storagePokemons[currentPokemon.id];
+          : storagePokemons[currentId];
 
       const previousPokemon =
-        currentPokemon.id === 1
+        currentId === 1
           ? storagePokemons[MAX_POKEMON_ID - 1]
-          : storagePokemons[currentPokemon.id - 2];
+          : storagePokemons[currentId - 2];
 
       return {
-        previous: { ...previousPokemon, id: currentPokemon.id - 1 },
-        next: { ...nextPokemon, id: currentPokemon.id + 1 },
+        previous: {
+          ...previousPokemon,
+          id: currentId === 1 ? MAX_POKEMON_ID : currentId - 1,
+        },
+        next: {
+          ...nextPokemon,
+          id: currentId === MAX_POKEMON_ID ? 1 : currentId + 1,
+        },
       };
     },
     [getStoragePokemons],

@@ -89,7 +89,7 @@ function Modal({ active }: IModalProps): JSX.Element {
               }}
             >
               <div>
-                <p>{formatPokemonId(pokemon.id)}</p>
+                <p>{formatPokemonId(nextPreviousPokemon.next.id)}</p>
                 <p>{nextPreviousPokemon.next.name}</p>
               </div>
               <FiChevronRight />
