@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { isEmpty } from 'lodash';
+import { isElement, isEmpty } from 'lodash';
 
 import { FiArrowLeft, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Page } from '../../components/Page';
@@ -20,7 +20,10 @@ import {
   Footer,
 } from './styles';
 import { formatPokemonId } from '../../shared/utils/formatPokemonId';
-import { IPreviousNextPokemon } from '../../shared/types/pokemon';
+import {
+  IPreviousNextPokemon,
+  Pokemon as PokemonType,
+} from '../../shared/types/pokemon';
 
 interface IPokemonRouteParams {
   name: string;
@@ -28,6 +31,7 @@ interface IPokemonRouteParams {
 
 function Pokemon(): JSX.Element {
   const history = useHistory();
+  const [evolutionChain, setEvolutionChain] = useState<PokemonType[]>([]);
 
   const { name } = useParams<IPokemonRouteParams>();
 
@@ -39,13 +43,22 @@ function Pokemon(): JSX.Element {
     findPokemon,
     getNextAndPreviousPokemon,
     clearSelectedPokemon,
+    getEvolutionChain,
   } = usePokemon();
 
   useEffect(() => {
     if (name !== pokemon.name) {
       findPokemon(name);
     }
-  }, [findPokemon, name, pokemon]);
+
+    if (!isEmpty(pokemon)) {
+      (async () => {
+        const evolutions = await getEvolutionChain(pokemon.id);
+
+        setEvolutionChain(evolutions);
+      })();
+    }
+  }, [findPokemon, name, pokemon, getEvolutionChain]);
 
   useEffect(() => {
     (async () => {
@@ -99,6 +112,8 @@ function Pokemon(): JSX.Element {
                 <img src={pokemon.image} alt={pokemon.name} loading="lazy" />
               </div>
             </Body>
+
+            {isEmpty(evolutionChain) && <h1>Este pokémon não tem evolução</h1>}
 
             {!isEmpty(nextPreviousPokemon) && (
               <Footer>

@@ -9,12 +9,14 @@ import {
   MAX_POKEMON_ID,
   STORAGE_POKEMONS,
 } from '../shared/constants';
+import { EvolutionResponse } from '../shared/types/evolution';
 import {
   IPreviousNextPokemon,
   Pokemon,
   PokemonResponse,
   SummaryPokemonResponse,
 } from '../shared/types/pokemon';
+import { SpecieResponse } from '../shared/types/specie';
 import { formatPokemon } from '../shared/utils/formatPokemon';
 
 interface PokemonContextData {
@@ -26,7 +28,7 @@ interface PokemonContextData {
   getNextAndPreviousPokemon(
     currentPokemon: Pokemon,
   ): Promise<IPreviousNextPokemon>;
-  getEvolutionChain(): void;
+  getEvolutionChain(pokemonId: number): Promise<Pokemon[]>;
 }
 
 const PokemonContext = createContext<PokemonContextData>(
@@ -135,11 +137,59 @@ const PokemonProvider: React.FC = ({ children }) => {
     [getStoragePokemons],
   );
 
-  const getEvolutionChain = useCallback(async () => {
-    const { data } = await pokeapi.get('/evolution-chain/1');
+  const getEvolutionChain = useCallback(
+    async (pokemonId: number): Promise<Pokemon[]> => {
+      console.log('CHAIN');
 
-    console.log(data);
-  }, []);
+      const response = await pokeapi.get<SpecieResponse>(
+        `/pokemon-species/${pokemonId}`,
+      );
+
+      const { data } = await pokeapi.get<EvolutionResponse>(
+        response.data.evolution_chain.url,
+      );
+
+      if (data.chain.evolves_to.length > 0) {
+        const evolutionChain: Pokemon[] = [];
+
+        const pokemonN1Name = data.species.name;
+        const pokemonN2Name = data.chain.evolves_to[0].species.name;
+        const pokemonN3Name =
+          data.chain.evolves_to[0].evolves_to[0].species.name;
+
+        const { data: pokemonN1Data } = await pokeapi.get<PokemonResponse>(
+          `/pokemon/${pokemonN1Name}`,
+        );
+
+        const pokemonN1 = formatPokemon(pokemonN1Data);
+
+        evolutionChain.push(pokemonN1);
+
+        const { data: pokemonN2Data } = await pokeapi.get<PokemonResponse>(
+          `/pokemon/${pokemonN2Name}`,
+        );
+
+        const pokemonN2 = formatPokemon(pokemonN2Data);
+
+        evolutionChain.push(pokemonN2);
+
+        if (pokemonN3Name) {
+          const { data: pokemonN3Data } = await pokeapi.get<PokemonResponse>(
+            `/pokemon/${pokemonN3Name}`,
+          );
+
+          const pokemonN3 = formatPokemon(pokemonN3Data);
+
+          evolutionChain.push(pokemonN3);
+        }
+
+        return evolutionChain;
+      }
+
+      return [];
+    },
+    [],
+  );
 
   return (
     <PokemonContext.Provider
