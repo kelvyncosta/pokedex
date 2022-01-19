@@ -10,9 +10,12 @@ function About(): JSX.Element {
   return (
     <Component>
       <h2>About</h2>
-      <Label title="Height" value={formatHeight(pokemon.about.height)} />
-      <Label title="Weight" value={formatWeight(pokemon.about.weight)} />
-      <Label title="Abilities" value={pokemon.about.abilities.join(', ')} />
+
+      <div className="info">
+        <Label title="Height" value={formatHeight(pokemon.about.height)} />
+        <Label title="Weight" value={formatWeight(pokemon.about.weight)} />
+        <Label title="Abilities" value={pokemon.about.abilities.join(', ')} />
+      </div>
     </Component>
   );
 }

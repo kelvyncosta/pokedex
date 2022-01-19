@@ -139,8 +139,6 @@ const PokemonProvider: React.FC = ({ children }) => {
 
   const getEvolutionChain = useCallback(
     async (pokemonId: number): Promise<Pokemon[]> => {
-      console.log('CHAIN');
-
       const response = await pokeapi.get<SpecieResponse>(
         `/pokemon-species/${pokemonId}`,
       );
@@ -149,13 +147,13 @@ const PokemonProvider: React.FC = ({ children }) => {
         response.data.evolution_chain.url,
       );
 
-      if (data.chain.evolves_to.length > 0) {
+      const { chain } = data;
+
+      if (chain.evolves_to.length > 0) {
         const evolutionChain: Pokemon[] = [];
 
-        const pokemonN1Name = data.species.name;
-        const pokemonN2Name = data.chain.evolves_to[0].species.name;
-        const pokemonN3Name =
-          data.chain.evolves_to[0].evolves_to[0].species.name;
+        // BASE POKEMON
+        const pokemonN1Name = chain.species.name;
 
         const { data: pokemonN1Data } = await pokeapi.get<PokemonResponse>(
           `/pokemon/${pokemonN1Name}`,
@@ -165,6 +163,9 @@ const PokemonProvider: React.FC = ({ children }) => {
 
         evolutionChain.push(pokemonN1);
 
+        // EVOLUTION 1
+        const pokemonN2Name = chain.evolves_to[0].species.name;
+
         const { data: pokemonN2Data } = await pokeapi.get<PokemonResponse>(
           `/pokemon/${pokemonN2Name}`,
         );
@@ -173,7 +174,10 @@ const PokemonProvider: React.FC = ({ children }) => {
 
         evolutionChain.push(pokemonN2);
 
-        if (pokemonN3Name) {
+        // EVOLUTION 2
+        if (chain.evolves_to[0].evolves_to.length > 0) {
+          const pokemonN3Name = chain.evolves_to[0].evolves_to[0].species.name;
+
           const { data: pokemonN3Data } = await pokeapi.get<PokemonResponse>(
             `/pokemon/${pokemonN3Name}`,
           );

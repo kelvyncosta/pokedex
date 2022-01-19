@@ -10,6 +10,9 @@ export type EvolutionResponse = {
     name: string;
   };
   chain: {
+    species: {
+      name: string;
+    };
     evolves_to: EvolvesTo[];
   };
 };

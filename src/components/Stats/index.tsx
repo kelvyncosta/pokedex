@@ -1,7 +1,7 @@
 import { usePokemon } from '../../hooks/pokemon';
-import { Counter } from './Counter';
+import { StatsCircle } from '../StatsCircle';
 
-import { Component, Range, Stat } from './styles';
+import { Component } from './styles';
 
 function Stats(): JSX.Element {
   const { selectedPokemon: pokemon } = usePokemon();
@@ -11,36 +11,36 @@ function Stats(): JSX.Element {
       <h2>Stats</h2>
 
       <div className="stats">
-        <Stat>
-          <span>HP</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[0]} />
-          <Counter target={pokemon.stats[0]} />
-        </Stat>
-        <Stat>
-          <span>Attack</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[1]} />
-          <Counter target={pokemon.stats[1]} />
-        </Stat>
-        <Stat>
-          <span>Defense</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[2]} />
-          <Counter target={pokemon.stats[2]} />
-        </Stat>
-        <Stat>
-          <span>Sp. Atk</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[3]} />
-          <Counter target={pokemon.stats[3]} />
-        </Stat>
-        <Stat>
-          <span>Sp. Def</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[4]} />
-          <Counter target={pokemon.stats[4]} />
-        </Stat>
-        <Stat>
-          <span>Speed</span>
-          <Range type={pokemon.types[0]} value={pokemon.stats[5]} />
-          <Counter target={pokemon.stats[5]} />
-        </Stat>
+        <StatsCircle
+          stat="HP"
+          value={pokemon.stats[0]}
+          type={pokemon.types[0]}
+        />
+        <StatsCircle
+          stat="Attack"
+          value={pokemon.stats[1]}
+          type={pokemon.types[0]}
+        />
+        <StatsCircle
+          stat="Defense"
+          value={pokemon.stats[2]}
+          type={pokemon.types[0]}
+        />
+        <StatsCircle
+          stat="Sp. Atk"
+          value={pokemon.stats[3]}
+          type={pokemon.types[0]}
+        />
+        <StatsCircle
+          stat="Sp. Def"
+          value={pokemon.stats[4]}
+          type={pokemon.types[0]}
+        />
+        <StatsCircle
+          stat="Speed"
+          value={pokemon.stats[5]}
+          type={pokemon.types[0]}
+        />
       </div>
     </Component>
   );

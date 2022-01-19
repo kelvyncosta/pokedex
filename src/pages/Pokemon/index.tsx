@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { isElement, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 
-import { FiArrowLeft, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import {
+  FiArrowDown,
+  FiArrowLeft,
+  FiChevronLeft,
+  FiChevronRight,
+} from 'react-icons/fi';
 import { Page } from '../../components/Page';
 import pokemonLogo from '../../assets/logo.png';
 import { usePokemon } from '../../hooks/pokemon';
@@ -18,12 +23,14 @@ import {
   Header,
   Body,
   Footer,
+  Chain,
 } from './styles';
 import { formatPokemonId } from '../../shared/utils/formatPokemonId';
 import {
   IPreviousNextPokemon,
   Pokemon as PokemonType,
 } from '../../shared/types/pokemon';
+import { scrollToTop } from '../../shared/utils/scrollToTop';
 
 interface IPokemonRouteParams {
   name: string;
@@ -113,7 +120,45 @@ function Pokemon(): JSX.Element {
               </div>
             </Body>
 
-            {isEmpty(evolutionChain) && <h1>Este pokémon não tem evolução</h1>}
+            {!isEmpty(evolutionChain) && (
+              <Chain type={pokemon.types[0]}>
+                <h2>Evolution Chain</h2>
+
+                <div className="chain">
+                  {evolutionChain.map((pokemonChain, index) => (
+                    <>
+                      {index !== 0 && (
+                        <div className={`arrow _${index}`}>
+                          <FiArrowDown />
+                        </div>
+                      )}
+
+                      <div className="chain__item" key={pokemonChain.id}>
+                        <div className="chain__item__image">
+                          <Link
+                            to={`/pokemon/${pokemonChain.name}`}
+                            onClick={() => scrollToTop()}
+                          >
+                            <img
+                              src={pokemonChain.image}
+                              alt={pokemonChain.name}
+                            />
+                          </Link>
+
+                          <div className="pokeball">
+                            <Pokeball size="175px" />
+                          </div>
+                        </div>
+
+                        <div className="chain__item__info">
+                          <h3>{pokemonChain.name}</h3>
+                        </div>
+                      </div>
+                    </>
+                  ))}
+                </div>
+              </Chain>
+            )}
 
             {!isEmpty(nextPreviousPokemon) && (
               <Footer>
@@ -124,6 +169,7 @@ function Pokemon(): JSX.Element {
                     history.push(
                       `/pokemon/${nextPreviousPokemon.previous.name}`,
                     );
+                    scrollToTop();
                   }}
                 >
                   <FiChevronLeft />
@@ -139,6 +185,7 @@ function Pokemon(): JSX.Element {
                   className="button nextPokemon"
                   onClick={() => {
                     history.push(`/pokemon/${nextPreviousPokemon.next.name}`);
+                    scrollToTop();
                   }}
                 >
                   <div>
