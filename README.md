@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+<h4 align="center">
+  <img src="https://github.com/kelvyncosta/pokedex/blob/main/src/assets/logo.png" alt="logo" height="130"/>
+</h4>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+    🚀 Pokedéx
+</h1>
 
-## Available Scripts
+<p align="center">Aplicação desenvolvida com a Pokedéx API</p>
 
-In the project directory, you can run:
+<p align="center">
+  <img src="https://img.shields.io/badge/react%20version-17.0.2-informational"/>
+  <img src="https://img.shields.io/github/last-commit/kelvyncosta/pokedex/main">
+  <img src="https://img.shields.io/badge/license-MIT-success"/>
+</p>
 
-### `yarn start`
+<p align="center">
+  <a href="#-features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-pré-requisitos">Pré-Requisitos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">Lincença</a>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h3 align="center">
+🚧  Em Desenvolvimento  🚧
+</h3>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 📎 Features
 
-### `yarn test`
+- [x] Home
+- [x] Pesquisa por pokémons
+- [x] Detalhes dos pokémons
+- [x] Evolução dos pokémons
+- [x] Listagem de pokémons
+- [ ] Filtro por gerações
+- [ ] Filtros de ordenação
+- [ ] [JOGO] Quem é esse Pokémon?
+- [ ] [JOGO] Pontuação
+- [ ] [JOGO] Dificuldades
+- [ ] [JOGO] Ranking por dificuldade
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 💻 Projeto
+Projeto desenvolvido para aprimorar meus conhecimentos em gerencimanentos de estados/contexto utilizando Context API.
 
-### `yarn build`
+### ⚙ Pré-requisitos
+- [Git](https://git-scm.com)
+- [Node.js (NPM)](https://nodejs.org/en/)
+- [Yarn (Opcional)](https://yarnpkg.com/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📗 Rodando a Aplicação em ambiente local
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# Clonar o repositório
+$ git clone https://github.com/kelvyncosta/pokedex
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Instalar as dependências
+$ yarn
 
-### `yarn eject`
+# Executar a aplicação
+$ yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 🚀 Tecnologias
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- React
+- Context API
+- Typescript
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 📕 Bibliotecas
 
-## Learn More
+Para este projeto foram utilizadas as seguintes libs:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- swiper
+- axios
+- styled-components
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 📝 Licença
+
+Esse projeto está sob a licença MIT.
+
+<hr/>
+
+Feito por Kelvyn Costa

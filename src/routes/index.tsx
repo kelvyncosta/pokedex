@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Home } from '../pages/Home';
-import { Pokedex } from '../pages/Pokedex';
-import { Pokemon } from '../pages/Pokemon';
-import { WhosThatPokemon } from '../pages/WhosThatPokemon';
+import { Home } from 'pages/Home';
+import { Pokedex } from 'pages/Pokedex';
+import { Pokemon } from 'pages/Pokemon';
+import { WhosThatPokemon } from 'pages/WhosThatPokemon';
 
 const Routes: React.FC = () => (
   <Switch>

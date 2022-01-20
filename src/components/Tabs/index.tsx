@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { usePokemon } from '../../hooks/pokemon';
+import { usePokemon } from 'hooks/pokemon';
+
 import { About } from './About';
 import { BaseStats } from './BaseStats';
+
 import { Component, TabItem } from './styles';
 
 function Tabs(): JSX.Element {

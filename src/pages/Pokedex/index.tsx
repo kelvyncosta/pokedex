@@ -1,17 +1,16 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FaSearch } from 'react-icons/fa';
-import { isEmpty } from 'lodash';
 
-import pokemonLogo from '../../assets/logo.png';
-import { Input } from '../../components/Input';
-import { Page } from '../../components/Page';
-import { usePokemon } from '../../hooks/pokemon';
+import pokemonLogo from 'assets/logo.png';
+import { usePokemon } from 'hooks/pokemon';
+import { Input } from 'components/Input';
+import { Page } from 'components/Page';
 
+import { DEFAULT_LIMIT, MAX_POKEMON_ID } from 'shared/constants';
 import { Content, SearchContainer } from './styles';
-import { Modal } from '../../components/Modal';
 
 interface FindPokemonFormData {
   name: string;
@@ -21,7 +20,28 @@ function Pokedex(): JSX.Element {
   const history = useHistory();
 
   const formRef = useRef<FormHandles>(null);
-  const { selectedPokemon: pokemon, findPokemon } = usePokemon();
+  const { findPokemon, loadPokemons, allPokemons } = usePokemon();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!allPokemons.length) {
+          throw new Error('Empty Pokémon List');
+        }
+
+        if (allPokemons.length < MAX_POKEMON_ID) {
+          throw new Error('Incomplete Pokémon List');
+        }
+      } catch (error) {
+        await loadPokemons({ initial: true, limit: DEFAULT_LIMIT, offset: 0 });
+
+        await loadPokemons({
+          limit: MAX_POKEMON_ID - DEFAULT_LIMIT,
+          offset: DEFAULT_LIMIT,
+        });
+      }
+    })();
+  }, [loadPokemons, allPokemons]);
 
   const handleSubmit = useCallback(
     async (data: FindPokemonFormData) => {
@@ -47,11 +67,17 @@ function Pokedex(): JSX.Element {
           </Form>
         </SearchContainer>
 
+        {/* {!isEmpty(pokemon) && (
+          <div>
+            <Card pokemon={pokemon} />
+          </div>
+        )} */}
+
         {/* <ResultsContainer>
           {!pokemon ? <NoSearchResults /> : }
         </ResultsContainer> */}
 
-        {!isEmpty(pokemon) && <Modal active={!isEmpty(pokemon)} />}
+        {/* {!isEmpty(pokemon) && <Modal active={!isEmpty(pokemon)} />} */}
       </Content>
     </Page>
   );

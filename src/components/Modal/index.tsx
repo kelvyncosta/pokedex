@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FiArrowLeft, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { isEmpty } from 'lodash';
-import { usePokemon } from '../../hooks/pokemon';
-import { formatPokemonId } from '../../shared/utils/formatPokemonId';
-import { IPreviousNextPokemon } from '../../shared/types/pokemon';
-import { Badge } from '../Badge';
-import { Tabs } from '../Tabs';
+import { usePokemon } from 'hooks/pokemon';
+import { formatPokemonId } from 'shared/utils/formatPokemonId';
+import { IPreviousNextPokemon } from 'shared/types/pokemon';
+import { Badge } from 'components/Badge';
+import { Tabs } from 'components/Tabs';
+import { Pokeball } from 'components/Pokeball';
+
 import {
   Component,
   ImageContainer,
@@ -14,7 +16,6 @@ import {
   Overlay,
   ModalFooter,
 } from './styles';
-import { Pokeball } from '../Pokeball';
 
 interface IModalProps {
   active: boolean;

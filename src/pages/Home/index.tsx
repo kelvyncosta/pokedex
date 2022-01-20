@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { Carousel } from '../../components/Carousel';
+import pokemonLogo from 'assets/logo.png';
+import { Carousel } from 'components/Carousel';
+
 import {
   Page,
   PageBackground,
@@ -9,8 +11,6 @@ import {
   Info,
   Featured,
 } from './styles';
-
-import pokemonLogo from '../../assets/logo.png';
 
 function Home(): JSX.Element {
   return (

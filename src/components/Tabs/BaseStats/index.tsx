@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
-import { usePokemon } from '../../../hooks/pokemon';
-import { PokemonTypes } from '../../../shared/types/pokemon';
+import { usePokemon } from 'hooks/pokemon';
+import { PokemonTypes } from 'shared/types/pokemon';
 import { Counter } from './Counter';
 import { Range } from './styles';
 

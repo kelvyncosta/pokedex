@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
 
-import { usePokemon } from '../../hooks/pokemon';
-import { Item } from './Item';
+import { usePokemon } from 'hooks/pokemon';
 
+import { Item } from './Item';
 import { Component } from './styles';
 
 import 'swiper/css';

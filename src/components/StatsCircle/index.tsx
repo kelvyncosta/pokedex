@@ -1,4 +1,4 @@
-import { PokemonTypes } from '../../shared/types/pokemon';
+import { PokemonTypes } from 'shared/types/pokemon';
 import { Component } from './styles';
 
 interface StatsCircleProps {

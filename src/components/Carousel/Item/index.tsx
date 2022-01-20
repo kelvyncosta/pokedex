@@ -1,4 +1,4 @@
-import { Pokemon } from '../../../shared/types/pokemon';
+import { Pokemon } from 'shared/types/pokemon';
 import { Component } from './styles';
 
 interface IItemProps {

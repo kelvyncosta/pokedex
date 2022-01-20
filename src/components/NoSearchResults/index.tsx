@@ -1,6 +1,6 @@
-import { Container } from './styles';
+import pokeball from 'assets/pokeball.svg';
 
-import pokeball from '../../assets/pokeball.svg';
+import { Container } from './styles';
 
 function NoSearchResults(): JSX.Element {
   return (

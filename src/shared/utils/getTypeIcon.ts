@@ -17,7 +17,7 @@ import { MdGrass, MdOutlineWaves } from 'react-icons/md';
 import { SiKinopoisk } from 'react-icons/si';
 import { WiStars } from 'react-icons/wi';
 
-import { PokemonTypes } from '../types/pokemon';
+import { PokemonTypes } from 'shared/types/pokemon';
 
 const ICONS = {
   dark: GiMoon,

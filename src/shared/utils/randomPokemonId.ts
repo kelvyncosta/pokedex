@@ -1,4 +1,4 @@
-import { MAX_POKEMON_ID } from '../constants';
+import { MAX_POKEMON_ID } from 'shared/constants';
 
 const randomPokemonId = (): number => {
   const maximum = MAX_POKEMON_ID + 1;

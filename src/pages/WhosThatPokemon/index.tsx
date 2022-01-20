@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
-import pokemonLogo from '../../assets/logo.png';
-import { Button } from '../../components/Button';
 
-import { Page } from '../../components/Page';
-import { Pokeball } from '../../components/Pokeball';
-import { randomPokemonId } from '../../shared/utils/randomPokemonId';
-import { usePokemon } from '../../hooks/pokemon';
+import pokemonLogo from 'assets/logo.png';
+import { usePokemon } from 'hooks/pokemon';
+import { Button } from 'components/Button';
+import { Page } from 'components/Page';
+import { Pokeball } from 'components/Pokeball';
+import { randomPokemonId } from 'shared/utils/randomPokemonId';
+
 import { Container, Content, GameContainer, StartContainer } from './styles';
 
 function WhosThatPokemon(): JSX.Element {

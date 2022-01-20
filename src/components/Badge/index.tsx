@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { PokemonTypes } from '../../shared/types/pokemon';
-import { getTypeIcon } from '../../shared/utils/getTypeIcon';
+import { PokemonTypes } from 'shared/types/pokemon';
+import { getTypeIcon } from 'shared/utils/getTypeIcon';
 import { Component } from './styles';
 
 interface IBadgeProps {

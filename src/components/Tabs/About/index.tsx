@@ -1,6 +1,6 @@
-import { usePokemon } from '../../../hooks/pokemon';
-import { formatHeight } from '../../../shared/utils/formatHeight';
-import { formatWeight } from '../../../shared/utils/formatWeight';
+import { usePokemon } from 'hooks/pokemon';
+import { formatHeight } from 'shared/utils/formatHeight';
+import { formatWeight } from 'shared/utils/formatWeight';
 
 function About(): JSX.Element {
   const { selectedPokemon: pokemon } = usePokemon();

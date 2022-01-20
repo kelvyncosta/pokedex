@@ -1,4 +1,4 @@
-import { Pokemon, PokemonResponse } from '../types/pokemon';
+import { Pokemon, PokemonResponse } from 'shared/types/pokemon';
 import { getPokemonGeneration } from './getPokemonGeneration';
 
 const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
