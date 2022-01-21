@@ -23,6 +23,7 @@ function GenerationContainer(): JSX.Element {
       <ListGeneration>
         {GENERATIONS.map(generation => (
           <ListItem
+            key={generation.text}
             active={generation.text === activeGeneration.text}
             onClick={() => handleClick(generation)}
           >

@@ -1,23 +1,23 @@
-import { useCallback, useState } from 'react';
+// import { useCallback, useState } from 'react';
 
 import pokemonLogo from 'assets/logo.png';
-import { usePokemon } from 'hooks/pokemon';
-import { Button } from 'components/Button';
+// import { usePokemon } from 'hooks/pokemon';
+// import { Button } from 'components/Button';
 import { Page } from 'components/Page';
 import { Pokeball } from 'components/Pokeball';
-import { randomPokemonId } from 'shared/utils/randomPokemonId';
+// import { randomPokemonId } from 'shared/utils/randomPokemonId';
 
-import { Container, Content, GameContainer, StartContainer } from './styles';
+import { Container, Content } from './styles';
 
 function WhosThatPokemon(): JSX.Element {
-  const [inGame, setInGame] = useState(false);
-  const { pokemon } = usePokemon();
+  // const [inGame, setInGame] = useState(false);
+  // const { pokemon } = usePokemon();
 
-  const startGame = useCallback(() => {
-    const pokemonId = randomPokemonId();
+  // const startGame = useCallback(() => {
+  //   const pokemonId = randomPokemonId();
 
-    setInGame(true);
-  }, []);
+  //   setInGame(true);
+  // }, []);
 
   return (
     <Page>
@@ -31,7 +31,7 @@ function WhosThatPokemon(): JSX.Element {
 
           <h1>Who&apos;s That Pokémon?</h1>
 
-          {!inGame ? (
+          {/* {!inGame ? (
             <StartContainer>
               <Button onClick={startGame}>Start</Button>
             </StartContainer>
@@ -52,7 +52,7 @@ function WhosThatPokemon(): JSX.Element {
                 <Button>Confirm</Button>
               </div>
             </GameContainer>
-          )}
+          )} */}
         </Container>
       </Content>
     </Page>
