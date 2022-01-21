@@ -2,11 +2,17 @@ import { Component } from './styles';
 
 interface IPokeballProps {
   size?: string;
+  opacity?: number;
+  isColorized?: boolean;
 }
 
-function Pokeball({ size = '300px' }: IPokeballProps): JSX.Element {
+function Pokeball({
+  size = '300px',
+  opacity = 0.2,
+  isColorized = false,
+}: IPokeballProps): JSX.Element {
   return (
-    <Component size={size}>
+    <Component opacity={opacity}>
       <svg
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,16 +23,18 @@ function Pokeball({ size = '300px' }: IPokeballProps): JSX.Element {
       >
         <g
           transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"
-          fill="#FFFFFF"
+          fill="#FFF"
           stroke="none"
         >
           <path
+            fill={isColorized ? 'red' : '#FFF'}
             d="M832 1985 c-398 -72 -709 -363 -803 -750 -10 -44 -19 -88 -19 -97 0
 -17 21 -18 313 -18 l312 1 24 52 c32 68 102 136 176 173 55 26 69 29 165 29
 95 0 110 -3 163 -28 72 -36 148 -110 178 -176 l24 -50 313 -1 c291 0 312 1
 312 18 0 9 -9 53 -19 97 -70 287 -272 538 -536 665 -185 88 -409 120 -603 85z"
           />
           <path
+            fill={isColorized ? '#000' : '#FFF'}
             d="M921 1219 c-46 -14 -127 -97 -140 -145 -26 -93 -7 -169 57 -233 96
 -95 228 -96 322 -1 95 94 94 226 -1 322 -64 64 -145 83 -238 57z"
           />

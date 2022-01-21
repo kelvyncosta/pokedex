@@ -11,14 +11,13 @@ import { Container, Content, GameContainer, StartContainer } from './styles';
 
 function WhosThatPokemon(): JSX.Element {
   const [inGame, setInGame] = useState(false);
-  const { selectedPokemon: pokemon, findPokemon } = usePokemon();
+  const { pokemon } = usePokemon();
 
   const startGame = useCallback(() => {
     const pokemonId = randomPokemonId();
-    findPokemon(String(pokemonId));
 
     setInGame(true);
-  }, [findPokemon]);
+  }, []);
 
   return (
     <Page>

@@ -13,11 +13,25 @@ export const Component = styled.div<IComponentProps>`
   background: ${({ theme, type }) => theme.backgrounds[type]};
   box-shadow: 0 0 1.25rem 0 ${({ theme, type }) => theme.backgrounds[type]};
   cursor: pointer;
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+
+  .pokeball {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const ImageContainer = styled.div`
   margin: 0 auto;
-  width: 170px;
+  width: 210px;
+  height: 215px;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -27,6 +41,8 @@ export const ImageContainer = styled.div`
 
   img {
     width: 210px;
+    height: 215px;
+    transition: all 0.3s ease-in-out;
   }
 `;
 

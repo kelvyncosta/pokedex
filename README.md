@@ -32,7 +32,7 @@
 - [x] Detalhes dos pokémons
 - [x] Evolução dos pokémons
 - [x] Listagem de pokémons
-- [ ] Filtro por gerações
+- [x] Filtro por gerações
 - [ ] Filtros de ordenação
 - [ ] [JOGO] Quem é esse Pokémon?
 - [ ] [JOGO] Pontuação

@@ -9,7 +9,7 @@ import { Component } from './styles';
 const stats = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
 
 function Body(): JSX.Element {
-  const { selectedPokemon: pokemon } = usePokemon();
+  const { pokemon } = usePokemon();
 
   return (
     <Component type={pokemon.types[0]}>
@@ -29,6 +29,7 @@ function Body(): JSX.Element {
         <div className="stats">
           {stats.map((stat, index) => (
             <StatsCircle
+              key={stat}
               stat={stat}
               value={pokemon.stats[index]}
               type={pokemon.types[0]}

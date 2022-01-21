@@ -9,7 +9,7 @@ interface IBaseStatsProps {
 }
 
 function BaseStats({ type }: IBaseStatsProps): JSX.Element {
-  const { selectedPokemon: pokemon } = usePokemon();
+  const { pokemon } = usePokemon();
 
   return (
     <table className="stat">

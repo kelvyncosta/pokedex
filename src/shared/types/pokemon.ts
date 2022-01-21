@@ -73,6 +73,6 @@ export type PokemonListResponse = {
 };
 
 export type IPreviousNextPokemon = {
-  previous: SummaryPokemonResponse;
-  next: SummaryPokemonResponse;
+  previous: Pokemon;
+  next: Pokemon;
 };

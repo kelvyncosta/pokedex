@@ -1,5 +1,5 @@
 export type Generation = {
-  text: string;
+  text?: string;
   offset: number;
   limit: number;
 };

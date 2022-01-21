@@ -1,27 +1,33 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { FiArrowDown } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Pokeball } from 'components/Pokeball';
 import { usePokemon } from 'hooks/pokemon';
 import { scrollToTop } from 'shared/utils/scrollToTop';
 import { Pokemon } from 'shared/types/pokemon';
 
+import { MAX_POKEMON_ID } from 'shared/constants';
 import { Component } from './styles';
 
 function EvolutionChain(): JSX.Element {
-  const { selectedPokemon: pokemon, getEvolutionChain } = usePokemon();
+  const history = useHistory();
+  const { pokemon, allPokemons, getEvolutionChain } = usePokemon();
 
   const [evolutionChain, setEvolutionChain] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     (async () => {
+      if (isEmpty(allPokemons) || allPokemons.length < MAX_POKEMON_ID) {
+        history.push('/pokedex');
+      }
+
       const evolutions = await getEvolutionChain(pokemon.id);
 
       setEvolutionChain(evolutions);
     })();
-  }, [pokemon, getEvolutionChain]);
+  }, [pokemon, getEvolutionChain, allPokemons, history]);
 
   return (
     <>
@@ -31,14 +37,14 @@ function EvolutionChain(): JSX.Element {
 
           <div className="chain">
             {evolutionChain.map((pokemonChain, index) => (
-              <>
+              <Fragment key={pokemonChain.id}>
                 {index !== 0 && (
                   <div className={`arrow _${index}`}>
                     <FiArrowDown />
                   </div>
                 )}
 
-                <div className="chain__item" key={pokemonChain.id}>
+                <div className="chain__item">
                   <div className="chain__item__image">
                     <Link
                       to={`/pokemon/${pokemonChain.name}`}
@@ -56,7 +62,7 @@ function EvolutionChain(): JSX.Element {
                     <h3>{pokemonChain.name}</h3>
                   </div>
                 </div>
-              </>
+              </Fragment>
             ))}
           </div>
         </Component>

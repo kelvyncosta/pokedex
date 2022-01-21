@@ -1,6 +1,10 @@
+import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Badge } from 'components/Badge';
 import { Pokemon } from 'shared/types/pokemon';
 import { formatPokemonId } from 'shared/utils/formatPokemonId';
+
 import {
   BadgesContainer,
   Component,
@@ -13,10 +17,16 @@ interface ICardProps {
 }
 
 function Card({ pokemon }: ICardProps): JSX.Element {
+  const history = useHistory();
+
+  const handleClick = useCallback(() => {
+    history.push(`/pokemon/${pokemon.name}`);
+  }, [history, pokemon]);
+
   return (
-    <Component type={pokemon.types[0]}>
+    <Component type={pokemon.types[0]} onClick={handleClick}>
       <ImageContainer>
-        <img src={pokemon.image} alt={pokemon.name} />
+        <img src={pokemon.image} alt={pokemon.name} loading="lazy" />
       </ImageContainer>
 
       <DataContainer>

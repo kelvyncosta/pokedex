@@ -1,18 +1,19 @@
-import { shuffle } from 'lodash';
 import { createContext, useCallback, useState, useContext } from 'react';
 import { pokeapi } from 'services/api';
 import {
-  FEATURED_POKEMONS_QUANTITY,
+  DEFAULT_LIMIT,
+  GENERATIONS,
   MAX_POKEMON_ID,
+  STORAGE_GENERATION,
   STORAGE_POKEMONS,
 } from 'shared/constants';
 import { EvolutionResponse } from 'shared/types/evolution';
+import { Generation } from 'shared/types/generation';
 import {
   IPreviousNextPokemon,
   Pokemon,
   PokemonListResponse,
   PokemonResponse,
-  SummaryPokemonResponse,
 } from 'shared/types/pokemon';
 import { SpecieResponse } from 'shared/types/specie';
 import { formatPokemon } from 'shared/utils/formatPokemon';
@@ -26,16 +27,18 @@ interface ILoadPokemonsParams {
 
 interface PokemonContextData {
   allPokemons: Pokemon[];
-  selectedPokemon: Pokemon;
-  featuredPokemons: Pokemon[];
+  pokemon: Pokemon;
+  currentPokemons: Pokemon[] | undefined;
+  activeGeneration: Generation;
+  findPokemon(name: string): void;
   loadPokemons(params: ILoadPokemonsParams): Promise<void>;
-  findPokemon(name: string): Promise<Pokemon>;
+  searchPokemon(value?: string): Promise<void>;
   clearSelectedPokemon(): void;
-  loadFeaturedPokemons(): void;
   getNextAndPreviousPokemon(
     currentPokemon: Pokemon,
   ): Promise<IPreviousNextPokemon>;
   getEvolutionChain(pokemonId: number): Promise<Pokemon[]>;
+  filterPokemonsByGeneration(generation: Generation): void;
 }
 
 const PokemonContext = createContext<PokemonContextData>(
@@ -43,21 +46,25 @@ const PokemonContext = createContext<PokemonContextData>(
 );
 
 const PokemonProvider: React.FC = ({ children }) => {
-  const [allPokemons] = useState<Pokemon[]>(() => {
-    const temp = getLocalItem<Pokemon[]>(STORAGE_POKEMONS);
+  const [activeGeneration, setActiveGeneration] = useState<Generation>(() => {
+    const storagedGeneration = getLocalItem<Generation>(STORAGE_GENERATION);
 
-    if (!temp) {
+    if (storagedGeneration) {
+      return storagedGeneration;
+    }
+    return GENERATIONS[0];
+  });
+  const [allPokemons, setAllPokemons] = useState<Pokemon[]>(() => {
+    const pokemons = getLocalItem<Pokemon[]>(STORAGE_POKEMONS);
+
+    if (!pokemons) {
       return [];
     }
 
-    return temp;
+    return pokemons;
   });
-
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>(
-    {} as Pokemon,
-  );
-
-  const [featuredPokemons, setFeaturedPokemons] = useState<Pokemon[]>([]);
+  const [pokemon, setPokemon] = useState<Pokemon>({} as Pokemon);
+  const [currentPokemons, setCurrentPokemons] = useState<Pokemon[]>();
 
   const callPokemon = useCallback(async (name: string): Promise<Pokemon> => {
     const { data } = await pokeapi.get<PokemonResponse>(`/pokemon/${name}`);
@@ -66,11 +73,7 @@ const PokemonProvider: React.FC = ({ children }) => {
   }, []);
 
   const loadPokemons = useCallback(
-    async ({
-      limit,
-      offset,
-      initial = false,
-    }: ILoadPokemonsParams): Promise<void> => {
+    async ({ limit, offset }: ILoadPokemonsParams): Promise<void> => {
       try {
         const { data } = await pokeapi.get<PokemonListResponse>('/pokemon', {
           params: {
@@ -83,18 +86,8 @@ const PokemonProvider: React.FC = ({ children }) => {
           data.results.map(item => callPokemon(item.name)),
         );
 
-        if (initial) {
-          setLocalItem(STORAGE_POKEMONS, [...pokemonsList]);
-        } else {
-          const storagePokemons = getLocalItem<Pokemon[]>(STORAGE_POKEMONS);
-
-          if (storagePokemons) {
-            setLocalItem(STORAGE_POKEMONS, [
-              ...storagePokemons,
-              ...pokemonsList,
-            ]);
-          }
-        }
+        setLocalItem(STORAGE_POKEMONS, pokemonsList);
+        setAllPokemons(pokemonsList);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -104,87 +97,60 @@ const PokemonProvider: React.FC = ({ children }) => {
     [callPokemon],
   );
 
-  const getStoragePokemons = useCallback(async (): Promise<
-    SummaryPokemonResponse[]
-  > => {
-    const storagePokemons = localStorage.getItem(STORAGE_POKEMONS);
-
-    if (storagePokemons) {
-      return JSON.parse(storagePokemons) as SummaryPokemonResponse[];
-    }
-    const { data } = await pokeapi.get('/pokemon', {
-      params: {
-        offset: 0,
-        limit: MAX_POKEMON_ID,
-      },
-    });
-
-    localStorage.setItem(STORAGE_POKEMONS, JSON.stringify(data.results));
-
-    return data.results as SummaryPokemonResponse[];
-  }, []);
-
   const findPokemon = useCallback(
-    async (name: string): Promise<Pokemon> => {
-      try {
-        const findedPokemon = await callPokemon(name);
+    (name: string): void => {
+      const findedPokemon = allPokemons.find(item => item.name === name);
 
-        setSelectedPokemon(findedPokemon);
-
-        return findedPokemon;
-      } catch (error) {
-        setSelectedPokemon({} as Pokemon);
-
-        throw new Error('');
+      if (findedPokemon) {
+        setPokemon(findedPokemon);
       }
     },
-    [callPokemon],
+    [setPokemon, allPokemons],
+  );
+
+  const filterPokemonsByGeneration = useCallback(
+    ({ offset, limit, text }: Generation): void => {
+      const generation: Generation = { offset, limit, text };
+      setActiveGeneration(generation);
+      setLocalItem(STORAGE_GENERATION, generation);
+      setCurrentPokemons(allPokemons.slice(offset, limit));
+    },
+    [allPokemons],
+  );
+
+  const searchPokemon = useCallback(
+    async (value: string | undefined): Promise<void> => {
+      if (!value) {
+        await filterPokemonsByGeneration({
+          limit: DEFAULT_LIMIT,
+          offset: 0,
+        });
+      } else {
+        const pokemons = allPokemons.filter(
+          item => item.name.indexOf(value) !== -1,
+        );
+
+        setCurrentPokemons(pokemons);
+      }
+    },
+    [allPokemons, filterPokemonsByGeneration],
   );
 
   const clearSelectedPokemon = useCallback(() => {
-    setSelectedPokemon({} as Pokemon);
+    setPokemon({} as Pokemon);
   }, []);
-
-  const loadFeaturedPokemons = useCallback(async () => {
-    const storagePokemons = await getStoragePokemons();
-
-    const shuffledPokemons = shuffle(storagePokemons);
-
-    const preFeaturedPokemons = shuffledPokemons.slice(
-      0,
-      FEATURED_POKEMONS_QUANTITY,
-    );
-
-    const featured: Pokemon[] = [];
-
-    // eslint-disable-next-line no-restricted-syntax
-    for await (const pokemon of preFeaturedPokemons) {
-      const { data } = await pokeapi.get<PokemonResponse>(
-        `/pokemon/${pokemon.name}`,
-      );
-
-      const formattedPokemon = formatPokemon(data);
-
-      featured.push(formattedPokemon);
-    }
-
-    setFeaturedPokemons(featured);
-  }, [getStoragePokemons]);
 
   const getNextAndPreviousPokemon = useCallback(
     async (currentPokemon: Pokemon): Promise<IPreviousNextPokemon> => {
-      const storagePokemons = await getStoragePokemons();
       const currentId = currentPokemon.id;
 
       const nextPokemon =
-        currentId === MAX_POKEMON_ID
-          ? storagePokemons[0]
-          : storagePokemons[currentId];
+        currentId === MAX_POKEMON_ID ? allPokemons[0] : allPokemons[currentId];
 
       const previousPokemon =
         currentId === 1
-          ? storagePokemons[MAX_POKEMON_ID - 1]
-          : storagePokemons[currentId - 2];
+          ? allPokemons[MAX_POKEMON_ID - 1]
+          : allPokemons[currentId - 2];
 
       return {
         previous: {
@@ -197,7 +163,7 @@ const PokemonProvider: React.FC = ({ children }) => {
         },
       };
     },
-    [getStoragePokemons],
+    [allPokemons],
   );
 
   const getEvolutionChain = useCallback(
@@ -218,22 +184,18 @@ const PokemonProvider: React.FC = ({ children }) => {
         // BASE POKEMON
         const pokemonN1Name = chain.species.name;
 
-        const { data: pokemonN1Data } = await pokeapi.get<PokemonResponse>(
-          `/pokemon/${pokemonN1Name}`,
+        const [pokemonN1] = allPokemons.filter(
+          item => item.name === pokemonN1Name,
         );
-
-        const pokemonN1 = formatPokemon(pokemonN1Data);
 
         evolutionChain.push(pokemonN1);
 
         // EVOLUTION 1
         const pokemonN2Name = chain.evolves_to[0].species.name;
 
-        const { data: pokemonN2Data } = await pokeapi.get<PokemonResponse>(
-          `/pokemon/${pokemonN2Name}`,
+        const [pokemonN2] = allPokemons.filter(
+          item => item.name === pokemonN2Name,
         );
-
-        const pokemonN2 = formatPokemon(pokemonN2Data);
 
         evolutionChain.push(pokemonN2);
 
@@ -241,11 +203,9 @@ const PokemonProvider: React.FC = ({ children }) => {
         if (chain.evolves_to[0].evolves_to.length > 0) {
           const pokemonN3Name = chain.evolves_to[0].evolves_to[0].species.name;
 
-          const { data: pokemonN3Data } = await pokeapi.get<PokemonResponse>(
-            `/pokemon/${pokemonN3Name}`,
+          const [pokemonN3] = allPokemons.filter(
+            item => item.name === pokemonN3Name,
           );
-
-          const pokemonN3 = formatPokemon(pokemonN3Data);
 
           evolutionChain.push(pokemonN3);
         }
@@ -255,21 +215,23 @@ const PokemonProvider: React.FC = ({ children }) => {
 
       return [];
     },
-    [],
+    [allPokemons],
   );
 
   return (
     <PokemonContext.Provider
       value={{
+        activeGeneration,
         allPokemons,
-        selectedPokemon,
-        featuredPokemons,
+        pokemon,
+        currentPokemons,
         findPokemon,
+        searchPokemon,
         clearSelectedPokemon,
-        loadFeaturedPokemons,
         getNextAndPreviousPokemon,
         getEvolutionChain,
         loadPokemons,
+        filterPokemonsByGeneration,
       }}
     >
       {children}

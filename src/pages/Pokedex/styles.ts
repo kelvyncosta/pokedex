@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   max-width: 1440px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -13,25 +13,11 @@ export const Content = styled.div`
   }
 `;
 
-export const SearchContainer = styled.div`
+export const Navigation = styled.div`
   width: 100%;
-
-  form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.625rem;
-  }
-
-  button {
-    background: transparent;
-    border: none;
-  }
-
-  svg {
-    font-size: 1.3rem;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
 `;
 
 export const ResultsContainer = styled.div`
@@ -40,4 +26,7 @@ export const ResultsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 4rem 0;
 `;

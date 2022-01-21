@@ -13,7 +13,7 @@ import { Component } from './styles';
 function Footer(): JSX.Element {
   const history = useHistory();
 
-  const { selectedPokemon: pokemon, getNextAndPreviousPokemon } = usePokemon();
+  const { pokemon, getNextAndPreviousPokemon } = usePokemon();
 
   const [nextPreviousPokemon, setNextPreviousPokemon] =
     useState<IPreviousNextPokemon>({} as IPreviousNextPokemon);

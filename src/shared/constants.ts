@@ -3,46 +3,47 @@ import { Generation } from 'shared/types/generation';
 export const MAX_POKEMON_ID = 898;
 export const DEFAULT_LIMIT = 151;
 export const STORAGE_POKEMONS = '@storage_pokemons';
+export const STORAGE_GENERATION = '@storage_generation';
 export const FEATURED_POKEMONS_QUANTITY = 10;
 
 export const GENERATIONS: Generation[] = [
   {
-    text: 'I',
+    text: '1st',
     offset: 0,
     limit: 151,
   },
   {
-    text: 'II',
+    text: '2nd',
     offset: 151,
     limit: 251,
   },
   {
-    text: 'III',
+    text: '3th',
     offset: 251,
     limit: 386,
   },
   {
-    text: 'IV',
+    text: '4th',
     offset: 386,
     limit: 493,
   },
   {
-    text: 'V',
+    text: '5th',
     offset: 493,
     limit: 649,
   },
   {
-    text: 'VI',
+    text: '6th',
     offset: 649,
     limit: 721,
   },
   {
-    text: 'VII',
+    text: '7th',
     offset: 721,
     limit: 809,
   },
   {
-    text: 'VIII',
+    text: '8th',
     offset: 809,
     limit: 898,
   },

@@ -7,7 +7,7 @@ import { BaseStats } from './BaseStats';
 import { Component, TabItem } from './styles';
 
 function Tabs(): JSX.Element {
-  const { selectedPokemon: pokemon } = usePokemon();
+  const { pokemon } = usePokemon();
 
   const [activeTab, setActiveTab] = useState(1);
 

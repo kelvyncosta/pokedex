@@ -6,7 +6,7 @@ import { formatPokemonId } from 'shared/utils/formatPokemonId';
 import { Component, ImageContainer } from './styles';
 
 function Header(): JSX.Element {
-  const { selectedPokemon: pokemon } = usePokemon();
+  const { pokemon } = usePokemon();
 
   return (
     <Component>

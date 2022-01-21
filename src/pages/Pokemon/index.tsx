@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -19,19 +19,16 @@ interface IPokemonRouteParams {
 }
 
 function Pokemon(): JSX.Element {
+  const history = useHistory();
   const { name } = useParams<IPokemonRouteParams>();
 
-  const {
-    selectedPokemon: pokemon,
-    findPokemon,
-    clearSelectedPokemon,
-  } = usePokemon();
+  const { pokemon, clearSelectedPokemon, findPokemon } = usePokemon();
 
   useEffect(() => {
     if (name !== pokemon.name) {
       findPokemon(name);
     }
-  }, [findPokemon, name, pokemon]);
+  }, [name, pokemon, history, findPokemon]);
 
   return (
     <Page>

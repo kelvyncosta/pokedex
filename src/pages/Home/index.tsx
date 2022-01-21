@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import pokemonLogo from 'assets/logo.png';
-import { Carousel } from 'components/Carousel';
 
 import {
   Page,
@@ -42,9 +41,7 @@ function Home(): JSX.Element {
           </div>
         </Info>
 
-        <Featured>
-          <Carousel />
-        </Featured>
+        <Featured>{/* <Carousel /> */}</Featured>
       </Content>
       <PageBackground />
     </Page>
