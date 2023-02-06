@@ -1,10 +1,23 @@
 import { PropsWithChildren, useState, useEffect } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
+
+import { usePokemon } from 'hooks/pokemon';
 import { scrollToTop } from 'shared/utils/scrollToTop';
+
+import { getLocalItem } from 'shared/utils/localStorage';
+import { Generation } from 'shared/types/generation';
+import {
+  GENERATIONS,
+  MAX_POKEMON_ID,
+  STORAGE_GENERATION,
+} from 'shared/constants';
 import { Header } from './Header';
 
 export function BasePage({ children }: PropsWithChildren) {
   const [showToTop, setShowToTop] = useState(false);
+
+  const { allPokemons, loadPokemons, filterPokemonsByGeneration } =
+    usePokemon();
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -17,6 +30,26 @@ export function BasePage({ children }: PropsWithChildren) {
       }
     });
   }, [showToTop]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!allPokemons.length) {
+          throw new Error('Empty Pokémon List');
+        }
+
+        if (allPokemons.length < MAX_POKEMON_ID) {
+          throw new Error('Incomplete Pokémon List');
+        }
+
+        const generation = getLocalItem<Generation>(STORAGE_GENERATION);
+
+        filterPokemonsByGeneration(generation || GENERATIONS[0]);
+      } catch (error) {
+        await loadPokemons({ limit: MAX_POKEMON_ID, offset: 0 });
+      }
+    })();
+  }, [loadPokemons, allPokemons, filterPokemonsByGeneration]);
 
   return (
     <div className="base_page">
