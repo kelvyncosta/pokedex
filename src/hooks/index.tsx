@@ -1,9 +1,9 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 
 import { PokemonProvider } from './pokemon';
 
-const AppProvider: React.FC = ({ children }) => (
-  <PokemonProvider>{children}</PokemonProvider>
-);
+function AppProvider({ children }: PropsWithChildren) {
+  return <PokemonProvider>{children}</PokemonProvider>;
+}
 
 export { AppProvider };

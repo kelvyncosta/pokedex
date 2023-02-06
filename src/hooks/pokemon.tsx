@@ -1,4 +1,11 @@
-import { createContext, useCallback, useState, useContext } from 'react';
+import {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  PropsWithChildren,
+  useMemo,
+} from 'react';
 import { pokeapi } from 'services/api';
 import {
   DEFAULT_LIMIT,
@@ -32,7 +39,7 @@ interface PokemonContextData {
   activeGeneration: Generation;
   findPokemon(name: string): void;
   loadPokemons(params: ILoadPokemonsParams): Promise<void>;
-  searchPokemon(value?: string): Promise<void>;
+  searchPokemon(value?: string): void;
   clearSelectedPokemon(): void;
   getNextAndPreviousPokemon(
     currentPokemon: Pokemon,
@@ -45,7 +52,7 @@ const PokemonContext = createContext<PokemonContextData>(
   {} as PokemonContextData,
 );
 
-const PokemonProvider: React.FC = ({ children }) => {
+function PokemonProvider({ children }: PropsWithChildren) {
   const [activeGeneration, setActiveGeneration] = useState<Generation>(() => {
     const storagedGeneration = getLocalItem<Generation>(STORAGE_GENERATION);
 
@@ -54,6 +61,7 @@ const PokemonProvider: React.FC = ({ children }) => {
     }
     return GENERATIONS[0];
   });
+
   const [allPokemons, setAllPokemons] = useState<Pokemon[]>(() => {
     const pokemons = getLocalItem<Pokemon[]>(STORAGE_POKEMONS);
 
@@ -63,7 +71,9 @@ const PokemonProvider: React.FC = ({ children }) => {
 
     return pokemons;
   });
+
   const [pokemon, setPokemon] = useState<Pokemon>({} as Pokemon);
+
   const [currentPokemons, setCurrentPokemons] = useState<Pokemon[]>();
 
   const callPokemon = useCallback(async (name: string): Promise<Pokemon> => {
@@ -119,15 +129,16 @@ const PokemonProvider: React.FC = ({ children }) => {
   );
 
   const searchPokemon = useCallback(
-    async (value: string | undefined): Promise<void> => {
+    (value: string | undefined): void => {
       if (!value) {
-        await filterPokemonsByGeneration({
+        filterPokemonsByGeneration({
           limit: DEFAULT_LIMIT,
           offset: 0,
         });
       } else {
         const pokemons = allPokemons.filter(
-          item => item.name.indexOf(value) !== -1,
+          item =>
+            item.name.indexOf(value) !== -1 || item.id.toString() === value,
         );
 
         setCurrentPokemons(pokemons);
@@ -218,26 +229,41 @@ const PokemonProvider: React.FC = ({ children }) => {
     [allPokemons],
   );
 
+  const contextValue = useMemo(
+    () => ({
+      activeGeneration,
+      allPokemons,
+      pokemon,
+      currentPokemons,
+      findPokemon,
+      searchPokemon,
+      clearSelectedPokemon,
+      getNextAndPreviousPokemon,
+      getEvolutionChain,
+      loadPokemons,
+      filterPokemonsByGeneration,
+    }),
+    [
+      activeGeneration,
+      allPokemons,
+      pokemon,
+      currentPokemons,
+      findPokemon,
+      searchPokemon,
+      clearSelectedPokemon,
+      getNextAndPreviousPokemon,
+      getEvolutionChain,
+      loadPokemons,
+      filterPokemonsByGeneration,
+    ],
+  );
+
   return (
-    <PokemonContext.Provider
-      value={{
-        activeGeneration,
-        allPokemons,
-        pokemon,
-        currentPokemons,
-        findPokemon,
-        searchPokemon,
-        clearSelectedPokemon,
-        getNextAndPreviousPokemon,
-        getEvolutionChain,
-        loadPokemons,
-        filterPokemonsByGeneration,
-      }}
-    >
+    <PokemonContext.Provider value={contextValue}>
       {children}
     </PokemonContext.Provider>
   );
-};
+}
 
 function usePokemon(): PokemonContextData {
   const context = useContext(PokemonContext);

@@ -1,10 +1,12 @@
 import { Generation } from 'shared/types/generation';
 
-export const MAX_POKEMON_ID = 898;
+export const MAX_POKEMON_ID = 1008;
 export const DEFAULT_LIMIT = 151;
 export const STORAGE_POKEMONS = '@storage_pokemons';
 export const STORAGE_GENERATION = '@storage_generation';
 export const FEATURED_POKEMONS_QUANTITY = 10;
+
+export const STATS = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
 
 export const GENERATIONS: Generation[] = [
   {
@@ -45,6 +47,11 @@ export const GENERATIONS: Generation[] = [
   {
     text: '8th',
     offset: 809,
-    limit: 898,
+    limit: 905,
+  },
+  {
+    text: '9th',
+    offset: 905,
+    limit: 1008,
   },
 ];

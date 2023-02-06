@@ -40,8 +40,6 @@ const ICONS = {
   water: IoWater,
 };
 
-const getTypeIcon = (type: PokemonTypes): IconType => {
+export const getTypeIcon = (type: PokemonTypes): IconType => {
   return ICONS[type];
 };
-
-export { getTypeIcon };
