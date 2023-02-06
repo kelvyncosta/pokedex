@@ -34,10 +34,9 @@
 - [x] Listagem de pokémons
 - [x] Filtro por gerações
 - [ ] Filtros de ordenação
-- [ ] [JOGO] Quem é esse Pokémon?
+- [x] [JOGO] Quem é esse Pokémon?
 - [ ] [JOGO] Pontuação
-- [ ] [JOGO] Dificuldades
-- [ ] [JOGO] Ranking por dificuldade
+- [ ] [JOGO] Limitar por geração
 
 ### 💻 Projeto
 Projeto desenvolvido para aprimorar meus conhecimentos em gerencimanentos de estados/contexto utilizando Context API.
