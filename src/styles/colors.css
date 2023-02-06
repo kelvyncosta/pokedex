@@ -1,0 +1,360 @@
+.bg-card-dark {
+  background-color: #333333;
+}
+
+.bg-card-bug {
+  background-color: #C3CE75;
+}
+
+.bg-card-dragon {
+  background-color: #F9BE00;
+}
+
+.bg-card-electric {
+  background-color: #FFD86F;
+}
+
+.bg-card-fairy {
+  background-color: #F469A9;
+}
+
+.bg-card-fighting {
+  background-color: #EB4971;
+}
+
+.bg-card-fire {
+  background-color: #FB6C6C;
+}
+
+.bg-card-flying {
+  background-color: #D6B591;
+}
+
+.bg-card-ghost {
+  background-color: #735797;
+}
+
+.bg-card-grass {
+  background-color: #48D0B0;
+}
+
+.bg-card-ground {
+  background-color: #B1736C;
+}
+
+.bg-card-ice {
+  background-color: #7FCCEC;
+}
+
+.bg-card-normal {
+  background-color: #C2C2A1;
+}
+
+.bg-card-poison {
+  background-color: #7C538C;
+}
+
+.bg-card-psychic {
+  background-color: #9B7FA6;
+}
+
+.bg-card-rock {
+  background-color: #A6AAB6;
+}
+
+.bg-card-steel {
+  background-color: #CCCCDE;
+}
+
+.bg-card-water {
+  background-color: #609FB5;
+}
+
+.text-dark {
+  color: #333333;
+}
+
+.text-bug {
+  color: #C3CE75;
+}
+
+.text-dragon {
+  color: #F9BE00;
+}
+
+.text-electric {
+  color: #FFD86F;
+}
+
+.text-fairy {
+  color: #F469A9;
+}
+
+.text-fighting {
+  color: #EB4971;
+}
+
+.text-fire {
+  color: #FB6C6C;
+}
+
+.text-flying {
+  color: #D6B591;
+}
+
+.text-ghost {
+  color: #735797;
+}
+
+.text-grass {
+  color: #48D0B0;
+}
+
+.text-ground {
+  color: #B1736C;
+}
+
+.text-ice {
+  color: #7FCCEC;
+}
+
+.text-normal {
+  color: #C2C2A1;
+}
+
+.text-poison {
+  color: #7C538C;
+}
+
+.text-psychic {
+  color: #9B7FA6;
+}
+
+.text-rock {
+  color: #A6AAB6;
+}
+
+.text-steel {
+  color: #CCCCDE;
+}
+
+.text-water {
+  color: #609FB5;
+}
+
+.stroke-dark {
+  stroke: #333333;
+}
+
+.stroke-bug {
+  stroke: #C3CE75;
+}
+
+.stroke-dragon {
+  stroke: #F9BE00;
+}
+
+.stroke-electric {
+  stroke: #FFD86F;
+}
+
+.stroke-fairy {
+  stroke: #F469A9;
+}
+
+.stroke-fighting {
+  stroke: #EB4971;
+}
+
+.stroke-fire {
+  stroke: #FB6C6C;
+}
+
+.stroke-flying {
+  stroke: #D6B591;
+}
+
+.stroke-ghost {
+  stroke: #735797;
+}
+
+.stroke-grass {
+  stroke: #48D0B0;
+}
+
+.stroke-ground {
+  stroke: #B1736C;
+}
+
+.stroke-ice {
+  stroke: #7FCCEC;
+}
+
+.stroke-normal {
+  stroke: #C2C2A1;
+}
+
+.stroke-poison {
+  stroke: #7C538C;
+}
+
+.stroke-psychic {
+  stroke: #9B7FA6;
+}
+
+.stroke-rock {
+  stroke: #A6AAB6;
+}
+
+.stroke-steel {
+  stroke: #CCCCDE;
+}
+
+.stroke-water {
+  stroke: #609FB5;
+}
+
+.shadow-dark {
+  box-shadow: 0 0 1.25rem 0 #333333;
+}
+
+.shadow-bug {
+  box-shadow: 0 0 1.25rem 0 #C3CE75;
+}
+
+.shadow-dragon {
+  box-shadow: 0 0 1.25rem 0 #F9BE00;
+}
+
+.shadow-electric {
+  box-shadow: 0 0 1.25rem 0 #FFD86F;
+}
+
+.shadow-fairy {
+  box-shadow: 0 0 1.25rem 0 #F469A9;
+}
+
+.shadow-fighting {
+  box-shadow: 0 0 1.25rem 0 #EB4971;
+}
+
+.shadow-fire {
+  box-shadow: 0 0 1.25rem 0 #FB6C6C;
+}
+
+.shadow-flying {
+  box-shadow: 0 0 1.25rem 0 #D6B591;
+}
+
+.shadow-ghost {
+  box-shadow: 0 0 1.25rem 0 #735797;
+}
+
+.shadow-grass {
+  box-shadow: 0 0 1.25rem 0 #48D0B0;
+}
+
+.shadow-ground {
+  box-shadow: 0 0 1.25rem 0 #B1736C;
+}
+
+.shadow-ice {
+  box-shadow: 0 0 1.25rem 0 #7FCCEC;
+}
+
+.shadow-normal {
+  box-shadow: 0 0 1.25rem 0 #C2C2A1;
+}
+
+.shadow-poison {
+  box-shadow: 0 0 1.25rem 0 #7C538C;
+}
+
+.shadow-psychic {
+  box-shadow: 0 0 1.25rem 0 #9B7FA6;
+}
+
+.shadow-rock {
+  box-shadow: 0 0 1.25rem 0 #A6AAB6;
+}
+
+.shadow-steel {
+  box-shadow: 0 0 1.25rem 0 #CCCCDE;
+}
+
+.shadow-water {
+  box-shadow: 0 0 1.25rem 0 #609FB5;
+}
+
+.bg-badge-dark {
+  background-color: #707070;
+}
+
+.bg-badge-bug {
+  background-color: #729F3F;
+}
+
+.bg-badge-dragon {
+  background-color: #53A4CF;
+}
+
+.bg-badge-electric {
+  background-color: #EED535;
+}
+
+.bg-badge-fairy {
+  background-color: #FDB9E9;
+}
+
+.bg-badge-fighting {
+  background-color: #D56723;
+}
+
+.bg-badge-fire {
+  background-color: #FD7D24;
+}
+
+.bg-badge-flying {
+  background-color: #3DC7EF;
+}
+
+.bg-badge-ghost {
+  background-color: #664497;
+}
+
+.bg-badge-grass {
+  background-color: #9BCC50;
+}
+
+.bg-badge-ground {
+  background-color: #AB9842;
+}
+
+.bg-badge-ice {
+  background-color: #51C4E7;
+}
+
+.bg-badge-normal {
+  background-color: #A4ACAF;
+}
+
+.bg-badge-poison {
+  background-color: #B97FC9;
+}
+
+.bg-badge-psychic {
+  background-color: #F366B9;
+}
+
+.bg-badge-rock {
+  background-color: #A38C21;
+}
+
+.bg-badge-steel {
+  background-color: #B7B7B7;
+}
+
+.bg-badge-water {
+  background-color: #4592C4;
+}
+

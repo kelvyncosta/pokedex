@@ -1,7 +1,7 @@
 import { Pokemon, PokemonResponse } from 'shared/types/pokemon';
 import { getPokemonGeneration } from './getPokemonGeneration';
 
-const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
+export const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
   const pokemon: Pokemon = {
     id: pokemonResponse.id,
     name: pokemonResponse.name,
@@ -20,5 +20,3 @@ const formatPokemon = (pokemonResponse: PokemonResponse): Pokemon => {
 
   return pokemon;
 };
-
-export { formatPokemon };

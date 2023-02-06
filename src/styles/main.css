@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  outline: none;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+  font-weight: 600;
+}
+
+/* HOME */
+.home__section h2 {
+  @apply text-3xl
+}
+
+.home__section p {
+  @apply mt-2 mb-6 mx-0;
+}
+
+.home__section a {
+  @apply py-2 px-10 bg-gray-900 text-gray-50 rounded-full mt-4 hover:bg-gray-700 transition-colors;
+  text-decoration: none;
+}
+
+/* BASE PAGE */
+.base_page {
+  @apply min-h-screen h-full py-0 px-4;
+  background-image: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0.85)
+    ),
+    url('/background.jpg');
+}
+
+/* GENERATION SELECTOR ITEMS */
+.generation__item {
+  @apply min-w-[40px] text-center p-3 cursor-pointer hover:bg-slate-200;
+}
+
+.generation__item--selected {
+  @apply bg-slate-200 border-b-4 border-blue-500;
+}
+
+/* POKEMON PAGE */
+.button__NextPrevious {
+  @apply -mt-4 pt-8 pb-4 px-2 relative w-1/2 bg-gray-400 text-slate-50 cursor-pointer flex items-center gap-3 z-[1] hover:bg-blue-400;
+}
+
+.button__NextPrevious p {
+  @apply capitalize leading-4;
+}

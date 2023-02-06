@@ -9,7 +9,7 @@
 <p align="center">Aplicação desenvolvida com a Pokedéx API</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/react%20version-17.0.2-informational"/>
+  <img src="https://img.shields.io/badge/react%20version-18.2.0-informational"/>
   <img src="https://img.shields.io/github/last-commit/kelvyncosta/pokedex/main">
   <img src="https://img.shields.io/badge/license-MIT-success"/>
 </p>
@@ -53,6 +53,9 @@ Projeto desenvolvido para aprimorar meus conhecimentos em gerencimanentos de est
 # Clonar o repositório
 $ git clone https://github.com/kelvyncosta/pokedex
 
+# Acessar a pasta do repositório
+$ cd pokedex
+
 # Instalar as dependências
 $ yarn
 
@@ -72,9 +75,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 Para este projeto foram utilizadas as seguintes libs:
 
-- swiper
-- axios
-- styled-components
+- Swiper
+- Axios
+- Tailwind CSS
 
 ### 📝 Licença
 

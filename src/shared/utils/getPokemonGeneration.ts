@@ -1,4 +1,4 @@
-const getPokemonGeneration = (pokemonId: number): string => {
+export const getPokemonGeneration = (pokemonId: number): string => {
   if (pokemonId >= 1 && pokemonId <= 151) {
     return '1st';
   }
@@ -20,7 +20,8 @@ const getPokemonGeneration = (pokemonId: number): string => {
   if (pokemonId >= 722 && pokemonId <= 809) {
     return '7th';
   }
-  return '8th';
+  if (pokemonId >= 810 && pokemonId <= 905) {
+    return '8th';
+  }
+  return '9th';
 };
-
-export { getPokemonGeneration };

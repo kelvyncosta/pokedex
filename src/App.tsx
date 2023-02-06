@@ -1,23 +1,23 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppProvider } from 'hooks';
-import { Routes } from 'routes';
-import { GlobalStyles } from 'styles/global';
-import { theme } from 'styles/theme/default';
+import { Home } from 'pages/Home';
+import { Pokedex } from 'pages/Pokedex';
+import { Pokemon } from 'pages/Pokemon';
 
-function App(): JSX.Element {
+import './styles/main.css';
+import './styles/colors.css';
+
+export function App() {
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <AppProvider>
-          <Routes />
-        </AppProvider>
-      </ThemeProvider>
-
-      <GlobalStyles />
-    </Router>
+    <BrowserRouter>
+      <AppProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pokedex" element={<Pokedex />} />
+          <Route path="/pokemon/:name" element={<Pokemon />} />
+        </Routes>
+      </AppProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;
