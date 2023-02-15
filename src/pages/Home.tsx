@@ -18,9 +18,9 @@ export function Home() {
           title="Who's that Pokémon?"
           buttonText="Start Game"
         >
-          <span className="italic">Who&apos;s that Pokémon?</span> is a game
-          base on result of Pokémon API. You object is dicover who is the hidden
-          Pokémon.
+          <span className="italic">Who&apos;s that Pokémon?</span> is a
+          question-and-answer segment that is featured in numerous episodes of
+          the Pokémon anime.
         </HomeOption>
       </main>
 
