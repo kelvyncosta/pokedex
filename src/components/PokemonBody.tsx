@@ -9,7 +9,7 @@ export function PokemonBody() {
   const { pokemon } = usePokemon();
 
   return (
-    <section className="relative p-5 rounded-xl shadow-lg bg-slate-50 z-10">
+    <section className="relative p-5 rounded-xl shadow-lg bg-slate-50 z-10 dark:bg-gray-800">
       <section>
         <h2 className={`text-2xl text-${pokemon.types[0]}`}>About</h2>
 

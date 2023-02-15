@@ -1,9 +1,6 @@
-import { PropsWithChildren, useState, useEffect } from 'react';
-import { FiArrowUp } from 'react-icons/fi';
+import { PropsWithChildren, useEffect } from 'react';
 
 import { usePokemon } from 'hooks/pokemon';
-import { scrollToTop } from 'shared/utils/scrollToTop';
-
 import { getLocalItem } from 'shared/utils/localStorage';
 import { Generation } from 'shared/types/generation';
 import {
@@ -12,24 +9,12 @@ import {
   STORAGE_GENERATION,
 } from 'shared/constants';
 import { Header } from './Header';
+import { ToTop } from './ToTop';
+import { ThemeButton } from './ThemeButton';
 
 export function BasePage({ children }: PropsWithChildren) {
-  const [showToTop, setShowToTop] = useState(false);
-
   const { allPokemons, loadPokemons, filterPokemonsByGeneration } =
     usePokemon();
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY >= 400 && !showToTop) {
-        setShowToTop(true);
-      }
-
-      if (window.scrollY <= 400 && showToTop) {
-        setShowToTop(false);
-      }
-    });
-  }, [showToTop]);
 
   useEffect(() => {
     (async () => {
@@ -52,20 +37,20 @@ export function BasePage({ children }: PropsWithChildren) {
   }, [loadPokemons, allPokemons, filterPokemonsByGeneration]);
 
   return (
-    <div className="base_page">
-      <Header />
+    <>
+      <div className="fixed w-screen h-screen -z-10 bg-pattern">
+        <div className="h-screen dark:opacity-90 dark:bg-gray-800">&nbsp;</div>
+      </div>
 
-      <main className="w-full max-w-7xl my-0 mx-auto">{children}</main>
+      <div className="min-h-screen h-full py-0 px-4 z-10">
+        <Header />
 
-      {showToTop && (
-        <div
-          className="fixed bottom-6 right-6 w-12 h-12 bg-slate-50 shadow-md rounded-full flex justify-center items-center text-2xl cursor-pointer"
-          onClick={scrollToTop}
-          aria-hidden="true"
-        >
-          <FiArrowUp />
-        </div>
-      )}
-    </div>
+        <main className="w-full max-w-7xl my-0 mx-auto">{children}</main>
+
+        <ThemeButton />
+
+        <ToTop />
+      </div>
+    </>
   );
 }

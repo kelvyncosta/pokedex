@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { CARD_COLOR } from 'shared/constants';
 
 import { Pokemon } from 'shared/types/pokemon';
 import { formatPokemonId } from 'shared/utils/formatPokemonId';
@@ -10,14 +11,29 @@ interface ICardProps {
 }
 
 export function Card({ pokemon }: ICardProps) {
-  const [mainType] = useState(pokemon.types[0]);
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const mainType = pokemon.types[0];
+    const anchor = ref.current;
+
+    anchor?.style.setProperty('--card-color', CARD_COLOR[mainType]);
+  }, [pokemon.types]);
 
   return (
     <Link
+      ref={ref}
       to={`/pokemon/${pokemon.name}`}
-      className={`group w-64 rounded-xl p-3 relative cursor-pointer bg-card-${mainType} shadow-${mainType}`}
+      className="
+        group w-64 rounded-xl p-3 relative cursor-pointer transition-all
+        bg-slate-300 dark:bg-gray-900
+        hover:bg-type hover:shadow-type"
     >
-      <section className="my-0 mx-auto w-[210px] h-[215px] flex justify-center absolute top-[-15%] left-1/2 -translate-x-1/2">
+      <section
+        className="
+          my-0 mx-auto w-[210px] h-[215px] flex justify-center absolute
+          top-[-15%] left-1/2 -translate-x-1/2"
+      >
         <img
           src={pokemon.image}
           alt={pokemon.name}

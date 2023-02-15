@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.tsx'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -28,12 +29,9 @@ module.exports = {
         },
       },
       boxShadow: {
-        outerCircle:
-          '6px 6px 10px -1px rgba(0, 0, 0, 0.15), -6px -6px 10px -1px rgba(255, 255, 255, 0.7)',
-        innerCircle:
-          'inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2), inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7), -0.5px -0.5px 0px rgba(255, 255, 255, 1), 0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05)',
         chain: '0 0 0.5rem 0 rgb(0 0 0 / 40%)',
         pokemon: '0 0 1rem 0 rgb(0 0 0 / 20%)',
+        type: '0 0 1.25rem 0 var(--card-color)',
       },
       fontSize: {
         stat: [
@@ -42,6 +40,17 @@ module.exports = {
             lineHeight: '2rem',
           },
         ],
+      },
+      backgroundImage: {
+        pattern: `linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.85),
+          rgba(255, 255, 255, 0.85)
+        ),
+        url('/background.jpg')`,
+      },
+      backgroundColor: {
+        type: 'var(--card-color) !important',
       },
     },
   },

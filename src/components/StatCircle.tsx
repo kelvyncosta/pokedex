@@ -12,9 +12,11 @@ export function StatCircle({ stat, value, type }: StatCircleProps) {
 
   return (
     <div className="w-40 h-40 relative">
-      <div className="w-40 h-40 rounded-full p-5 shadow-outerCircle">
-        <div className="w-[120px] aspect-square rounded-full shadow-innerCircle flex flex-col justify-center items-center">
-          <p className="font-semibold text-gray-700 text-stat">{value}</p>
+      <div className="w-40 h-40 rounded-full p-5">
+        <div className="w-[120px] aspect-square rounded-full flex flex-col justify-center items-center">
+          <p className="font-semibold text-gray-700 dark:text-slate-200 text-stat">
+            {value}
+          </p>
           <p>{stat}</p>
         </div>
       </div>
@@ -26,9 +28,25 @@ export function StatCircle({ stat, value, type }: StatCircleProps) {
           r={70}
           strokeLinecap="round"
           fill="none"
+          strokeWidth={3}
+          className="stroke-slate-400 dark:stroke-gray-400"
+        />
+      </svg>
+
+      <svg
+        width={160}
+        height={160}
+        className="absolute top-0 left-0 -rotate-[90deg]"
+      >
+        <circle
+          cx={80}
+          cy={80}
+          r={70}
+          strokeLinecap="round"
+          fill="none"
           strokeWidth={20}
           strokeDasharray={437}
-          strokeDashoffset={offset}
+          strokeDashoffset={-offset}
           className={`stroke-${type}`}
         />
       </svg>

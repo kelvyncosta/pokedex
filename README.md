@@ -37,6 +37,7 @@
 - [x] [JOGO] Quem é esse Pokémon?
 - [ ] [JOGO] Pontuação
 - [ ] [JOGO] Limitar por geração
+- [ ] Tema escuro
 
 ### 💻 Projeto
 Projeto desenvolvido para aprimorar meus conhecimentos em gerencimanentos de estados/contexto utilizando Context API.

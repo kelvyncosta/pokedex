@@ -1,9 +1,14 @@
 interface IPokeballProps {
   size?: string;
   opacity?: number;
+  className?: string;
 }
 
-export function Pokeball({ size = '300px', opacity = 0.2 }: IPokeballProps) {
+export function Pokeball({
+  size = '300px',
+  opacity = 0.2,
+  className,
+}: IPokeballProps) {
   return (
     <svg
       version="1.0"
@@ -13,6 +18,7 @@ export function Pokeball({ size = '300px', opacity = 0.2 }: IPokeballProps) {
       viewBox="0 0 200.000000 200.000000"
       preserveAspectRatio="xMidYMid meet"
       opacity={opacity}
+      className={className}
     >
       <g
         transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"

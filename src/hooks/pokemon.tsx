@@ -8,7 +8,6 @@ import {
 } from 'react';
 import { pokeapi } from 'services/api';
 import {
-  DEFAULT_LIMIT,
   GENERATIONS,
   MAX_POKEMON_ID,
   STORAGE_GENERATION,
@@ -59,6 +58,8 @@ function PokemonProvider({ children }: PropsWithChildren) {
     if (storagedGeneration) {
       return storagedGeneration;
     }
+
+    setLocalItem(STORAGE_GENERATION, GENERATIONS[0]);
     return GENERATIONS[0];
   });
 
@@ -119,8 +120,8 @@ function PokemonProvider({ children }: PropsWithChildren) {
   );
 
   const filterPokemonsByGeneration = useCallback(
-    ({ offset, limit, text }: Generation): void => {
-      const generation: Generation = { offset, limit, text };
+    (generation: Generation): void => {
+      const { offset, limit } = generation;
       setActiveGeneration(generation);
       setLocalItem(STORAGE_GENERATION, generation);
       setCurrentPokemons(allPokemons.slice(offset, limit));
@@ -131,10 +132,7 @@ function PokemonProvider({ children }: PropsWithChildren) {
   const searchPokemon = useCallback(
     (value: string | undefined): void => {
       if (!value) {
-        filterPokemonsByGeneration({
-          limit: DEFAULT_LIMIT,
-          offset: 0,
-        });
+        filterPokemonsByGeneration(activeGeneration);
       } else {
         const pokemons = allPokemons.filter(
           item =>
@@ -144,7 +142,7 @@ function PokemonProvider({ children }: PropsWithChildren) {
         setCurrentPokemons(pokemons);
       }
     },
-    [allPokemons, filterPokemonsByGeneration],
+    [allPokemons, filterPokemonsByGeneration, activeGeneration],
   );
 
   const clearSelectedPokemon = useCallback(() => {
