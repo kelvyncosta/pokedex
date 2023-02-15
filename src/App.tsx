@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 
 import { AppProvider } from 'hooks';
+import { ToastContainer } from 'components/ToastContainer';
 import { Home } from 'pages/Home';
 import { Pokedex } from 'pages/Pokedex';
 import { Pokemon } from 'pages/Pokemon';
@@ -23,7 +23,7 @@ export function App() {
           <Route path="/whos-that-pokemon" element={<WhosThatPokemon />} />
         </Routes>
 
-        <ToastContainer position="top-center" autoClose={2500} />
+        <ToastContainer />
       </AppProvider>
     </BrowserRouter>
   );

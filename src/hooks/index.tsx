@@ -1,9 +1,14 @@
 import { PropsWithChildren } from 'react';
 
 import { PokemonProvider } from './pokemon';
+import { ThemeProvider } from './theme';
 
 function AppProvider({ children }: PropsWithChildren) {
-  return <PokemonProvider>{children}</PokemonProvider>;
+  return (
+    <PokemonProvider>
+      <ThemeProvider>{children}</ThemeProvider>
+    </PokemonProvider>
+  );
 }
 
 export { AppProvider };

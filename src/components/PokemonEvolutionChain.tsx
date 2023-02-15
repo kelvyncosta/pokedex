@@ -21,9 +21,7 @@ export function PokemonEvolutionChain() {
   }, [getEvolutionChain, pokemon]);
 
   return !isEmpty(evolutionChain) ? (
-    <section
-      className={`relative -mt-5 pt-10 pb-5 px-5 py-5 shadow-chain z-[4] bg-card-${pokemon.types[0]} rounded-b-xl`}
-    >
+    <section className="relative -mt-5 pt-10 pb-5 px-5 py-5 shadow-chain z-[4] rounded-b-xl bg-type">
       <h2 className="text-slate-50 text-2xl mb-4">Evolution Chain</h2>
 
       <div className="flex flex-col items-center gap-2">
