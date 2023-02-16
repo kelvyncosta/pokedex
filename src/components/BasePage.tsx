@@ -6,7 +6,7 @@ import { Generation } from 'shared/types/generation';
 import {
   GENERATIONS,
   MAX_POKEMON_ID,
-  STORAGE_GENERATION,
+  PERSISTED_GENERATION,
 } from 'shared/constants';
 import { Header } from './Header';
 import { ToTop } from './ToTop';
@@ -27,7 +27,7 @@ export function BasePage({ children }: PropsWithChildren) {
           throw new Error('Incomplete Pokémon List');
         }
 
-        const generation = getLocalItem<Generation>(STORAGE_GENERATION);
+        const generation = getLocalItem<Generation>(PERSISTED_GENERATION);
 
         filterPokemonsByGeneration(generation || GENERATIONS[0]);
       } catch (error) {

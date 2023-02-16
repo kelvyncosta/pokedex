@@ -1,10 +1,10 @@
 import { Generation } from 'shared/types/generation';
 
 export const MAX_POKEMON_ID = 1008;
-export const STORAGE_POKEMONS = '@storage_pokemons';
-export const STORAGE_GENERATION = '@storage_generation';
-export const STORAGE_THEME = '@storage_theme';
-export const FEATURED_POKEMONS_QUANTITY = 10;
+export const PERSISTED_POKEMONS = '@persisted_pokemons';
+export const PERSISTED_GENERATION = '@persisted_generation';
+export const PERSISTED_THEME = '@persisted_theme';
+export const PERSISTED_SCORE = '@persisted_score';
 
 export const STATS = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
 

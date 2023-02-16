@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { STORAGE_THEME } from 'shared/constants';
+import { PERSISTED_THEME } from 'shared/constants';
 import { getLocalItem, setLocalItem } from 'shared/utils/localStorage';
 
 type ThemeType = 'dark' | 'light';
@@ -20,32 +20,34 @@ const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData);
 
 function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, setTheme] = useState<ThemeType>(() => {
-    const persistedTheme = getLocalItem<ThemeType>(STORAGE_THEME);
+    const persistedTheme = getLocalItem<ThemeType>(PERSISTED_THEME);
 
-    if (persistedTheme) {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add(persistedTheme);
-      return persistedTheme;
+    document.documentElement.classList.remove('dark');
+
+    if (persistedTheme && persistedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+
+      return 'dark';
     }
 
-    setLocalItem(STORAGE_THEME, 'light');
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+
+      setLocalItem(PERSISTED_THEME, 'dark');
+      return 'dark';
+    }
+
+    setLocalItem(PERSISTED_THEME, 'light');
     return 'light';
   });
 
   const toggleTheme = useCallback(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    } else {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
-    }
+    document.documentElement.classList.toggle('dark');
 
     const newTheme = theme === 'dark' ? 'light' : 'dark';
 
     setTheme(newTheme);
-    setLocalItem(STORAGE_THEME, newTheme);
+    setLocalItem(PERSISTED_THEME, newTheme);
   }, [theme]);
 
   const contextValue = useMemo(

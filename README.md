@@ -35,9 +35,9 @@
 - [x] Filtro por gerações
 - [ ] Filtros de ordenação
 - [x] [JOGO] Quem é esse Pokémon?
-- [ ] [JOGO] Pontuação
+- [x] [JOGO] Pontuação
 - [ ] [JOGO] Limitar por geração
-- [ ] Tema escuro
+- [x] Tema escuro
 
 ### 💻 Projeto
 Projeto desenvolvido para aprimorar meus conhecimentos em gerencimanentos de estados/contexto utilizando Context API.
@@ -75,9 +75,13 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 Para este projeto foram utilizadas as seguintes libs:
 
-- Swiper
-- Axios
-- Tailwind CSS
+- [Axios](https://axios-http.com/docs/intro)
+- [Classnames](https://www.npmjs.com/package/classnames)
+- [Tailwind CSS](https://tailwindcss.com/docs/installation)
+- [Lodash](https://lodash.com/docs/4.17.15)
+- [React Icons](https://react-icons.github.io/react-icons/react)
+- [React Router Dom](https://reactrouter.com/en/main)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 ### 📝 Licença
 
