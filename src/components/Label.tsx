@@ -5,9 +5,9 @@ interface ILabelProps {
 
 export function Label({ value, title }: ILabelProps) {
   return (
-    <span className="mb-4">
-      <p className="capitalize font-semibold">{title}</p>
-      <p className="capitalize">{value}</p>
+    <span className="mb-4 capitalize">
+      <p className="font-semibold">{title}</p>
+      <p className="text-center">{value}</p>
     </span>
   );
 }

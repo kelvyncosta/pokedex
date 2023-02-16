@@ -52,6 +52,9 @@ module.exports = {
       backgroundColor: {
         type: 'var(--card-color) !important',
       },
+      fontFamily: {
+        orbitron: ['Orbitron', 'sans-serif'],
+      },
     },
   },
   plugins: [],

@@ -10,8 +10,8 @@ import { pokeapi } from 'services/api';
 import {
   GENERATIONS,
   MAX_POKEMON_ID,
-  STORAGE_GENERATION,
-  STORAGE_POKEMONS,
+  PERSISTED_GENERATION,
+  PERSISTED_POKEMONS,
 } from 'shared/constants';
 import { EvolutionResponse } from 'shared/types/evolution';
 import { Generation } from 'shared/types/generation';
@@ -53,18 +53,18 @@ const PokemonContext = createContext<PokemonContextData>(
 
 function PokemonProvider({ children }: PropsWithChildren) {
   const [activeGeneration, setActiveGeneration] = useState<Generation>(() => {
-    const storagedGeneration = getLocalItem<Generation>(STORAGE_GENERATION);
+    const storagedGeneration = getLocalItem<Generation>(PERSISTED_GENERATION);
 
     if (storagedGeneration) {
       return storagedGeneration;
     }
 
-    setLocalItem(STORAGE_GENERATION, GENERATIONS[0]);
+    setLocalItem(PERSISTED_GENERATION, GENERATIONS[0]);
     return GENERATIONS[0];
   });
 
   const [allPokemons, setAllPokemons] = useState<Pokemon[]>(() => {
-    const pokemons = getLocalItem<Pokemon[]>(STORAGE_POKEMONS);
+    const pokemons = getLocalItem<Pokemon[]>(PERSISTED_POKEMONS);
 
     if (!pokemons) {
       return [];
@@ -97,7 +97,7 @@ function PokemonProvider({ children }: PropsWithChildren) {
           data.results.map(item => callPokemon(item.name)),
         );
 
-        setLocalItem(STORAGE_POKEMONS, pokemonsList);
+        setLocalItem(PERSISTED_POKEMONS, pokemonsList);
         setAllPokemons(pokemonsList);
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -123,7 +123,7 @@ function PokemonProvider({ children }: PropsWithChildren) {
     (generation: Generation): void => {
       const { offset, limit } = generation;
       setActiveGeneration(generation);
-      setLocalItem(STORAGE_GENERATION, generation);
+      setLocalItem(PERSISTED_GENERATION, generation);
       setCurrentPokemons(allPokemons.slice(offset, limit));
     },
     [allPokemons],
