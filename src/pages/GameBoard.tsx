@@ -77,7 +77,6 @@ export function GameBoard() {
               verifyAnswer({ chooseOption: option });
               setIsDisabled(true);
             }}
-            aria-hidden="true"
           >
             {option.name}
           </button>
